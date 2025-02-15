@@ -2,16 +2,18 @@ package com.sevenwonders.management.domain.wonder.values;
 
 import com.sevenwonders.shared.domain.generic.IValueObject;
 
+import java.util.List;
+
 public class Marks implements IValueObject {
 
-  private final Integer value;
+  private final List<Integer> value;
 
-  private Marks(Integer value){
+  private Marks(List<Integer> value){
     this.value = value;
     validate();
   }
 
-  public static Marks of (Integer value){
+  public static Marks of (List<Integer> value){
     return new Marks(value);
   }
 
@@ -22,13 +24,13 @@ public class Marks implements IValueObject {
       throw new IllegalArgumentException("The Marks cant be null");
     }
 
-    if (this.value > 18 || this.value < -6) {
-      throw new IllegalArgumentException("The Marks must be between -6 and 18.");
+    if (this.value.size() > 1 || this.value.size() < 6) {
+      throw new IllegalArgumentException("The Marks length must be 6 and not less than 1.");
     }
 
   }
 
-  public Integer getValue() {
+  public List<Integer> getValue() {
     return value;
   }
 }
