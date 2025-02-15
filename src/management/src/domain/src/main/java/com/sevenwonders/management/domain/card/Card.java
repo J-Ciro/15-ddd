@@ -9,7 +9,6 @@ import com.sevenwonders.management.domain.card.events.ValidatedRequirement;
 import com.sevenwonders.management.domain.card.values.CardId;
 import com.sevenwonders.management.domain.card.values.Color;
 import com.sevenwonders.management.domain.card.values.Era;
-import com.sevenwonders.management.domain.card.values.MinimumPlayers;
 import com.sevenwonders.management.domain.card.values.Name;
 import com.sevenwonders.management.domain.card.values.Type;
 import com.sevenwonders.shared.domain.generic.AggregateRoot;
@@ -34,7 +33,6 @@ public class Card extends AggregateRoot<CardId> {
   }
 
   //endregion
-
 
   //region Getters and Setters
 
@@ -71,7 +69,6 @@ public class Card extends AggregateRoot<CardId> {
   }
 
   //endregion
-
 
   //region Domain Actions
 

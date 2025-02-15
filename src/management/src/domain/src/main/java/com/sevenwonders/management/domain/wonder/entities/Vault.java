@@ -5,6 +5,8 @@ import com.sevenwonders.management.domain.wonder.values.Resources;
 import com.sevenwonders.management.domain.wonder.values.VaultId;
 import com.sevenwonders.shared.domain.generic.Entity;
 
+import java.util.List;
+
 public class Vault extends Entity<VaultId> {
 
 
@@ -25,6 +27,49 @@ public class Vault extends Entity<VaultId> {
   }
 
 
+  // region Methods
+
+
+
+  public Integer calculateScore(Integer coins) {
+    return coins / 3;
+  }
+
+  public String buyMaterial(String resource) {
+    if (resources.getValue().contains(resource)) {
+      return "Already bought";
+    }
+    resources.getValue().add(resource);
+    updateCoins(-3);
+    return "Bought";
+  }
+
+
+  public boolean sellMaterial(String resource) {
+    if (!resources.getValue().contains(resource)) {
+      return false;
+    }
+    resources.getValue().remove(resource);
+    updateCoins(3);
+    return true;
+  }
+
+  public void updateCoins(Integer amount) {
+    if (amount == null) return;
+   coins =  Coins.of(coins.getValue() + amount);
+  }
+
+  public void updateResources(List<String> currentResources, List<String> usedResources) {
+    if (usedResources == null) return;
+    usedResources.forEach(currentResources::remove);
+  }
+
+
+  //endregion
+
+ // region Getters and Setters
+
+
   public Coins getCoins() {
     return coins;
   }
@@ -40,4 +85,6 @@ public class Vault extends Entity<VaultId> {
   public void setResources(Resources resources) {
     this.resources = resources;
   }
+
+  //endregion
 }

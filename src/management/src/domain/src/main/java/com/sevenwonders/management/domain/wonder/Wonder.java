@@ -58,8 +58,6 @@ private Wonder(WonderId identity){
 
   //endregion
 
-
-
 //region Domain Actions
 
 public void updateStage(String id ,String wonderName, String stage){
@@ -87,8 +85,6 @@ public void calculateResources(String id, String wonderName, Integer coins, List
 }
 
 //endregion
-
-
 
 
 }

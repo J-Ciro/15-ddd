@@ -34,10 +34,19 @@ public class Construction extends Entity<ConstructionId> {
   }
 
 
-  public Integer calculateShields() {
-    return shields.getValue();
+ // region Methods
+
+  public String checkStatus(String status) {
+    return status;
   }
 
+  public String updateStatus(String status) {
+    return switch (status) {
+      case "built" -> "placed";
+      case "discarded" -> "discarded";
+      default -> throw new IllegalArgumentException("Invalid status: " + status);
+    };
+  }
 
   public Integer checkShields(Integer enemyShields, Integer currentEra ) {
     Integer shield = calculateShields();
@@ -52,11 +61,36 @@ public class Construction extends Entity<ConstructionId> {
     return Integer.compare(shield, enemyShields);
   }
 
-
-  public String updateEffect(String effect) {
-    return effect;
+  public Integer calculateShields() {
+    return shields.getValue();
   }
 
+  public String checkEffect(String status) {
+    return status;
+  }
+
+
+  public String updateEffect(String effect) {
+    return switch (effect) {
+      case "Materia Prima" -> "Produces raw resources";
+      case "Productos Manufacturados" -> "Produces manufactured goods";
+      case "Estructuras Civiles" -> "Gives victory points";
+      case "Estructuras Cientificas" -> "Gives science points based on sets";
+      case "Estructuras Comerciales" -> "Grants coins, modifies trade, or gives victory points";
+      case "Estructuras Militares" -> "Increases military strength";
+      case "Gremios" -> "Gives points based on conditions";
+      default -> throw new IllegalArgumentException("Invalid card type: " + effect);
+    };
+  }
+
+  public String checkChained(Boolean chained) {
+    return chained ? "chained" : "not chained";
+  }
+
+  //endregion
+
+
+ //region Getters and Setters
 
   public Status getStatus() {
     return status;
@@ -89,4 +123,6 @@ public class Construction extends Entity<ConstructionId> {
   public void setEffect(Effect effect) {
     this.effect = effect;
   }
+
+  //endregion
 }
