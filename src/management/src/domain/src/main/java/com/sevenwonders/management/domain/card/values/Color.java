@@ -1,6 +1,9 @@
 package com.sevenwonders.management.domain.card.values;
 
 import com.sevenwonders.shared.domain.generic.IValueObject;
+import com.sevenwonders.shared.domain.generic.utils.Utils;
+
+import java.util.Set;
 
 public class Color implements IValueObject {
 
@@ -16,17 +19,24 @@ public class Color implements IValueObject {
   }
 
 
+  private static final Set<String> VALID_COLORS = Set.of(
+    "BROWN", "GRAY", "BLUE", "GREEN", "YELLOW", "RED", "PURPLE"
+  );
+
+
+
   @Override
   public void validate() {
-    if (this.value == null){
-      throw new IllegalArgumentException("The Color cant be null");
-    }
-    if (this.value.isBlank()){
-      throw new IllegalArgumentException("The Color cant be empty");
-    }
+
+    Utils.validateNotNull(this.value, "Color value");
+    Utils.validateNotBlank(this.value);
 
     if (this.value.length() > 10){
       throw new IllegalArgumentException("The Color cant be longer than 10 characters");
+    }
+
+    if (!VALID_COLORS.contains(this.value)) {
+      throw new IllegalArgumentException("Invalid Color: " + this.value);
     }
 
   }

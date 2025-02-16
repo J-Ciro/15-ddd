@@ -1,5 +1,6 @@
 package com.sevenwonders.management.domain.wonder.values;
 import com.sevenwonders.shared.domain.generic.IValueObject;
+import com.sevenwonders.shared.domain.generic.utils.Utils;
 
 public class Coins implements IValueObject {
 
@@ -18,12 +19,10 @@ public class Coins implements IValueObject {
   @Override
   public void validate() {
 
-    if (this.value == null){
-      throw new IllegalArgumentException("The Coins cant be null");
-    }
-    if (this.value < 0 ){
-      throw new IllegalArgumentException("The Coins cant be negative");
-    }
+   Utils.validateNotNull(this.value, "Coins value");
+
+   Utils.validateNotNegative(this.value);
+
   }
 
   public Integer getValue() {

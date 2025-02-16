@@ -1,6 +1,7 @@
 package com.sevenwonders.management.domain.wonder.values;
 
 import com.sevenwonders.shared.domain.generic.IValueObject;
+import com.sevenwonders.shared.domain.generic.utils.Utils;
 
 import java.util.List;
 
@@ -20,9 +21,7 @@ public class Marks implements IValueObject {
   @Override
   public void validate() {
 
-    if (this.value == null){
-      throw new IllegalArgumentException("The Marks cant be null");
-    }
+    Utils.validateNotNull(this.value, "Marks value");
 
     if (this.value.size() > 1 || this.value.size() < 6) {
       throw new IllegalArgumentException("The Marks length must be 6 and not less than 1.");

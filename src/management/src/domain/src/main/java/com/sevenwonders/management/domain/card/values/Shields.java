@@ -1,6 +1,7 @@
 package com.sevenwonders.management.domain.card.values;
 
 import com.sevenwonders.shared.domain.generic.IValueObject;
+import com.sevenwonders.shared.domain.generic.utils.Utils;
 
 
 public class Shields implements IValueObject {
@@ -19,9 +20,7 @@ public class Shields implements IValueObject {
   @Override
   public void validate() {
 
-    if (this.value == null){
-      throw new IllegalArgumentException("The Shields cant be null");
-    }
+   Utils.validateNotNull(this.value, "Shields value");
 
     if (this.value > 10) {
       throw new IllegalArgumentException("The Shields cant be greater than 10");

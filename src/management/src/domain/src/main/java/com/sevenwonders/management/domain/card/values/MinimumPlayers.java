@@ -1,6 +1,7 @@
 package com.sevenwonders.management.domain.card.values;
 
 import com.sevenwonders.shared.domain.generic.IValueObject;
+import com.sevenwonders.shared.domain.generic.utils.Utils;
 
 public class MinimumPlayers implements IValueObject {
 
@@ -18,9 +19,7 @@ public class MinimumPlayers implements IValueObject {
   @Override
   public void validate() {
 
-    if (this.value == null){
-      throw new IllegalArgumentException("The MinimumPlayers cant be null");
-    }
+    Utils.validateNotNull(this.value, "MinimumPlayers value");
 
     if (this.value < 3 || this.value > 7){
       throw new IllegalArgumentException("The MinimumPlayers cant be greater than 7 or less than 3");

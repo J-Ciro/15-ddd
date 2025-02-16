@@ -1,6 +1,7 @@
 package com.sevenwonders.management.domain.wonder.values;
 
 import com.sevenwonders.shared.domain.generic.IValueObject;
+import com.sevenwonders.shared.domain.generic.utils.Utils;
 
 import java.util.List;
 
@@ -20,9 +21,7 @@ public class Resources implements IValueObject {
   @Override
   public void validate() {
 
-    if (this.value == null){
-      throw new IllegalArgumentException("The Mode cant be null");
-    }
+    Utils.validateNotNull(this.value, "Resources value");
 
   }
 

@@ -1,6 +1,7 @@
 package com.sevenwonders.management.domain.card.values;
 
 import com.sevenwonders.shared.domain.generic.IValueObject;
+import com.sevenwonders.shared.domain.generic.utils.Utils;
 
 import java.util.List;
 
@@ -20,13 +21,8 @@ public class Resoruces implements IValueObject {
   @Override
   public void validate() {
 
-    if (this.value == null){
-      throw new IllegalArgumentException("The Resources cant be null");
-    }
-
-    if (this.value.isEmpty()){
-      throw new IllegalArgumentException("The Resources cant be empty");
-    }
+   Utils.validateNotNull(this.value, "Resources value");
+   Utils.validateNotEmpty(this.value);
 
     if (this.value.size() > 4){
       throw new IllegalArgumentException("The Resources cant be greater than 4");

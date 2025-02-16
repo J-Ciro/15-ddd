@@ -1,6 +1,7 @@
 package com.sevenwonders.management.domain.card.values;
 
 import com.sevenwonders.shared.domain.generic.IValueObject;
+import com.sevenwonders.shared.domain.generic.utils.Utils;
 
 public class Amount implements IValueObject {
 
@@ -19,12 +20,8 @@ public class Amount implements IValueObject {
   @Override
   public void validate() {
 
-    if (this.value == null){
-      throw new IllegalArgumentException("The Amount cant be null");
-    }
-    if (this.value < 0){
-      throw new IllegalArgumentException("The Amount cant be negative");
-    }
+    Utils.validateNotNull(this.value, "Amount value");
+    Utils.validateNotNegative(this.value);
 
   }
 

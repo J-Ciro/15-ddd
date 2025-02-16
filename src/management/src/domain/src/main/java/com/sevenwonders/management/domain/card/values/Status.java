@@ -1,6 +1,7 @@
 package com.sevenwonders.management.domain.card.values;
 
 import com.sevenwonders.shared.domain.generic.IValueObject;
+import com.sevenwonders.shared.domain.generic.utils.Utils;
 
 public class Status implements IValueObject {
   private final String value;
@@ -17,13 +18,9 @@ public class Status implements IValueObject {
   @Override
   public void validate() {
 
-    if (this.value == null){
-      throw new IllegalArgumentException("The Status cant be null");
-    }
-
-    if (this.value.isBlank()){
-      throw new IllegalArgumentException("The Status cant be empty");
-    }
+    Utils.validateNotNull(this.value, "Status value");
+    Utils.validateNotBlank(this.value);
+    Utils.validateNotSpecialCharacters(this.value);
 
   }
 

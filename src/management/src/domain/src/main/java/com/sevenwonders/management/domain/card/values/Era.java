@@ -1,6 +1,7 @@
 package com.sevenwonders.management.domain.card.values;
 
 import com.sevenwonders.shared.domain.generic.IValueObject;
+import com.sevenwonders.shared.domain.generic.utils.Utils;
 
 public class Era implements IValueObject {
 
@@ -18,9 +19,7 @@ public class Era implements IValueObject {
   @Override
   public void validate() {
 
-    if (this.value == null){
-      throw new IllegalArgumentException("The Effect cant be null");
-    }
+   Utils.validateNotNull(this.value, "Era value");
 
     if (this.value < 1 || this.value > 3){
       throw new IllegalArgumentException("The Era cant be greater than 3 or less than 1");
