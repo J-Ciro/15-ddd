@@ -20,10 +20,8 @@ public class MinimumPlayers implements IValueObject {
   public void validate() {
 
     Utils.validateNotNull(this.value, "MinimumPlayers value");
+    Utils.validateInRange(this.value, 3, 7, "MinimumPlayers value");
 
-    if (this.value < 3 || this.value > 7){
-      throw new IllegalArgumentException("The MinimumPlayers cant be greater than 7 or less than 3");
-    }
   }
 
   public Integer getValue() {

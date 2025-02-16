@@ -20,9 +20,8 @@ public class Coins implements IValueObject {
   public void validate() {
 
    Utils.validateNotNull(this.value, "Coins value");
-
    Utils.validateNotNegative(this.value);
-
+   Utils.validateGreaterThan(this.value, 0, "Coins value");
   }
 
   public Integer getValue() {

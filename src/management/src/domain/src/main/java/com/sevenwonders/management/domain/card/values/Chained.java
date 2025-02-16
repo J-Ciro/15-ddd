@@ -20,6 +20,7 @@ public class Chained implements IValueObject {
   @Override
   public void validate() {
     Utils.validateNotNull(this.value, "Chained value");
+
   }
 
 

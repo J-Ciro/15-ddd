@@ -22,6 +22,7 @@ public class Resources implements IValueObject {
   public void validate() {
 
     Utils.validateNotNull(this.value, "Resources value");
+    Utils.validateNotEmpty(this.value);
 
   }
 

@@ -21,11 +21,8 @@ public class Location implements IValueObject {
 
    Utils.validateNotNull(this.value, "Location value");
    Utils.validateNotBlank(this.value);
-    Utils.validateNotSpecialCharacters(this.value);
-
-    if (this.value.length() > 5 || this.value.length() < 4){
-      throw new IllegalArgumentException("The Location cant be greater than 10 characters");
-    }
+   Utils.validateNotSpecialCharacters(this.value);
+   Utils.validateInRange(this.value.length(), 4, 5, "Location value");
 
   }
 

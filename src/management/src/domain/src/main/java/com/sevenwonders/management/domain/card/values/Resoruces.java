@@ -23,10 +23,8 @@ public class Resoruces implements IValueObject {
 
    Utils.validateNotNull(this.value, "Resources value");
    Utils.validateNotEmpty(this.value);
+   Utils.validateGreaterThan(this.value.size(), 4, "Resources value");
 
-    if (this.value.size() > 4){
-      throw new IllegalArgumentException("The Resources cant be greater than 4");
-    }
 
   }
 

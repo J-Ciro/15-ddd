@@ -38,4 +38,17 @@ public class Utils {
       throw new IllegalArgumentException(value + " can't contain special characters");
     }
   }
+
+  public static void validateInRange(int value, int min, int max, String fieldName) {
+    if (value < min || value > max) {
+      throw new IllegalArgumentException(fieldName + " must be between " + min + " and " + max);
+    }
+  }
+
+  public static void validateGreaterThan(int value, int min, String fieldName) {
+    if (value > min) {
+      throw new IllegalArgumentException(fieldName + "cant be greater than " + min);
+    }
+  }
+
 }

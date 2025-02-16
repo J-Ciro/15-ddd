@@ -21,10 +21,9 @@ public class Shields implements IValueObject {
   public void validate() {
 
    Utils.validateNotNull(this.value, "Shields value");
+   Utils.validateGreaterThan(this.value, 10, "Shields value");
 
-    if (this.value > 10) {
-      throw new IllegalArgumentException("The Shields cant be greater than 10");
-    }
+
   }
 
   public Integer getValue() {

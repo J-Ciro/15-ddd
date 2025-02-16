@@ -22,10 +22,7 @@ public class Marks implements IValueObject {
   public void validate() {
 
     Utils.validateNotNull(this.value, "Marks value");
-
-    if (this.value.size() > 1 || this.value.size() < 6) {
-      throw new IllegalArgumentException("The Marks length must be 6 and not less than 1.");
-    }
+    Utils.validateInRange(this.value.size(), 1, 6, "Marks value");
 
   }
 
