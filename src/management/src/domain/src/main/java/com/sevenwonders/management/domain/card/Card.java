@@ -1,8 +1,12 @@
 package com.sevenwonders.management.domain.card;
 
+import com.sevenwonders.management.domain.card.entities.Construction;
+import com.sevenwonders.management.domain.card.entities.Requirement;
 import com.sevenwonders.management.domain.card.events.CheckedConstruction;
 import com.sevenwonders.management.domain.card.events.CheckedRequirement;
+import com.sevenwonders.management.domain.card.events.DiscardedCard;
 import com.sevenwonders.management.domain.card.events.DiscardedConstruction;
+import com.sevenwonders.management.domain.card.events.SelectedCard;
 import com.sevenwonders.management.domain.card.events.UpdatedRequirement;
 import com.sevenwonders.management.domain.card.events.ValidatedConstruction;
 import com.sevenwonders.management.domain.card.events.ValidatedRequirement;
@@ -22,6 +26,9 @@ public class Card extends AggregateRoot<CardId> {
   private Era era;
   private Type type;
   private Color color;
+  private Construction construction;
+  private Requirement requirement;
+
 
   //region Constructors
   public Card() {
@@ -71,10 +78,16 @@ public class Card extends AggregateRoot<CardId> {
   //endregion
 
   //region Domain Actions
+public void selectedCard(String id, String name, Integer era, String type, String color, Requirement requirements, Construction constructions){
+  apply(new SelectedCard(id, name, era, type, color, requirements, constructions));
+}
+
+public void discardedCard(String id, String name, Integer era, String type, String color, Requirement requirements, Construction constructions){
+  apply(new DiscardedCard(id, name, era, type, color, requirements, constructions));
+}
 
 public void checkRequirement(String id, String price, List<String> resources, Integer minimumPlayers) {
   apply(new CheckedRequirement(id, price, resources, minimumPlayers));
-
 }
 
 public void updateRequirement(String id, String price, List<String> resources, Integer minimumPlayers) {

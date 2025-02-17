@@ -1,6 +1,10 @@
 package com.sevenwonders.management.domain.wonder;
 
 import com.sevenwonders.management.domain.card.values.Name;
+import com.sevenwonders.management.domain.wonder.entities.Conflict;
+import com.sevenwonders.management.domain.wonder.entities.Stage;
+import com.sevenwonders.management.domain.wonder.entities.Vault;
+import com.sevenwonders.management.domain.wonder.events.AssignedWonder;
 import com.sevenwonders.management.domain.wonder.events.CalculatePoints;
 import com.sevenwonders.management.domain.wonder.events.CalculateResources;
 import com.sevenwonders.management.domain.wonder.events.CheckedStage;
@@ -19,6 +23,9 @@ public class Wonder extends AggregateRoot<WonderId> {
 private Name name;
 private Mode mode;
 private CardId cardId;
+private Conflict conflict;
+private Vault vault;
+private Stage stage;
 
 // region Constructors
 public Wonder(){
@@ -59,6 +66,9 @@ private Wonder(WonderId identity){
   //endregion
 
 //region Domain Actions
+public void assignedWonder(String id, String name, String mode){
+  apply(new AssignedWonder(id, name, mode));
+}
 
 public void updateStage(String id ,String wonderName, String stage){
   apply(new UpdatedStage(id, wonderName, stage));
