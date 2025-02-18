@@ -54,11 +54,12 @@ public class CardHandler extends DomainActionsContainer {
       Integer shields = construction.calculateShields();
       construction.setShields(Shields.of(shields));
 
-      String chainedStatus = construction.checkChained(event.getChained());
-      construction.setChained(Chained.of(event.getChained()));
+      Boolean chainedStatus = Boolean.valueOf(construction.checkChained(event.getChained()));
+      construction.setChained(Chained.of(chainedStatus));
 
       String checkedEffect = construction.checkEffect(event.getEffect());
       construction.setEffect(Effect.of(checkedEffect));
+
     };
   }
 
