@@ -20,13 +20,12 @@ public class Resources implements IValueObject {
 
   @Override
   public void validate() {
-
     Utils.validateNotNull(this.value, "Resources value");
     Utils.validateNotEmpty(this.value);
-
   }
 
   public List<String> getValue() {
     return value;
   }
+
 }

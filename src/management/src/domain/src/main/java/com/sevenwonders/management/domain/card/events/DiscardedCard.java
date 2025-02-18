@@ -4,9 +4,7 @@ import com.sevenwonders.management.domain.card.entities.Construction;
 import com.sevenwonders.management.domain.card.entities.Requirement;
 import com.sevenwonders.shared.domain.generic.DomainEvent;
 
-import java.util.List;
-
-public class DiscartedCard extends DomainEvent {
+public class DiscardedCard extends DomainEvent {
 
   private final String id;
   private final String name;
@@ -17,7 +15,7 @@ public class DiscartedCard extends DomainEvent {
   private final Construction constructions;
 
 
-  public DiscartedCard(String id, String name, Integer era, String type, String color, Requirement requirements, Construction constructions) {
+  public DiscardedCard(String id, String name, Integer era, String type, String color, Requirement requirements, Construction constructions) {
     super(EventsEnum.DISCARDED_CARD.name());
     this.id = id;
     this.name = name;
