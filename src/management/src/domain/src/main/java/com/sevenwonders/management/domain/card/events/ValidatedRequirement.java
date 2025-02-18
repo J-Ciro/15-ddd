@@ -7,12 +7,12 @@ import java.util.List;
 public class ValidatedRequirement extends DomainEvent {
 
   private final String id;
-  private final String price;
+  private final Integer price;
   private final List<String> resources;
   private final Integer minimumPlayers;
 
 
-  public ValidatedRequirement(String id, String price, List<String> resources, Integer minimumPlayers) {
+  public ValidatedRequirement(String id, Integer price, List<String> resources, Integer minimumPlayers) {
     super(EventsEnum.VALIDATED_REQUIREMENT.name());
     this.id = id;
     this.price = price;
@@ -25,7 +25,7 @@ public class ValidatedRequirement extends DomainEvent {
     return id;
   }
 
-  public String getPrice() {
+  public Integer getPrice() {
     return price;
   }
 

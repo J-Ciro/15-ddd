@@ -16,6 +16,7 @@ import com.sevenwonders.management.domain.card.values.Era;
 import com.sevenwonders.management.domain.card.values.Name;
 import com.sevenwonders.management.domain.card.values.Type;
 import com.sevenwonders.shared.domain.generic.AggregateRoot;
+import com.sevenwonders.shared.domain.generic.DomainEvent;
 
 import java.util.List;
 
@@ -31,12 +32,15 @@ public class Card extends AggregateRoot<CardId> {
 
 
   //region Constructors
-  public Card() {
+  public Card(String id, String name, Integer era, String type, String color, Construction construction, Requirement requirement) {
     super(new CardId());
+    subscribe(new CardHandler(this));
+    apply(new SelectedCard(id, name, era, type, color, requirement, construction));
   }
 
   private Card(CardId identity) {
     super(identity);
+    subscribe(new CardHandler(this));
   }
 
   //endregion
@@ -75,6 +79,23 @@ public class Card extends AggregateRoot<CardId> {
     this.color = color;
   }
 
+  public Construction getConstruction() {
+    return construction;
+  }
+
+  public void setConstruction(Construction construction) {
+    this.construction = construction;
+  }
+
+  public Requirement getRequirement() {
+    return requirement;
+  }
+
+  public void setRequirement(Requirement requirement) {
+    this.requirement = requirement;
+  }
+
+
   //endregion
 
   //region Domain Actions
@@ -86,15 +107,15 @@ public void discardedCard(String id, String name, Integer era, String type, Stri
   apply(new DiscardedCard(id, name, era, type, color, requirements, constructions));
 }
 
-public void checkRequirement(String id, String price, List<String> resources, Integer minimumPlayers) {
+public void checkRequirement(String id, Integer price, List<String> resources, Integer minimumPlayers) {
   apply(new CheckedRequirement(id, price, resources, minimumPlayers));
 }
 
-public void updateRequirement(String id, String price, List<String> resources, Integer minimumPlayers) {
+public void updateRequirement(String id, Integer price, List<String> resources, Integer minimumPlayers) {
     apply(new UpdatedRequirement(id, price, resources, minimumPlayers));
 }
 
-public void validateRequirement(String id, String price, List<String> resources, Integer minimumPlayers) {
+public void validateRequirement(String id, Integer price, List<String> resources, Integer minimumPlayers) {
   apply(new ValidatedRequirement(id, price, resources, minimumPlayers));
 }
 
@@ -112,6 +133,13 @@ public void checkConstruction(String id, String status, Boolean chained, Integer
 
   //endregion
 
+  public static Card from(final String identity, final List<DomainEvent> events){
 
+    Card card = new Card(CardId.of(identity));
+    events.forEach(card::apply);
+
+    return card;
+
+  }
 
 }

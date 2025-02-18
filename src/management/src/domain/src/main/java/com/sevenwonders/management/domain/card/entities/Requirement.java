@@ -104,5 +104,6 @@ public class Requirement extends Entity<RequirementId> {
     this.minimumPlayers = minimumPlayers;
   }
 
+
   //endregion
 }
