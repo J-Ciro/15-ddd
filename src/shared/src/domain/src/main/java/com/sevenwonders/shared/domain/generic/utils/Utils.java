@@ -16,9 +16,11 @@ public class Utils {
   }
 
   public static void validateNotBlank(String value) {
+
     if (value.isBlank()) {
-      throw new IllegalArgumentException(value + " can't be empty");
+      throw new IllegalArgumentException(value + " can't be blank");
     }
+
   }
 
   public static void validateNotNegative(Integer value) {
@@ -40,13 +42,20 @@ public class Utils {
   }
 
   public static void validateInRange(int value, int min, int max, String fieldName) {
-    if (value < min || value > max) {
-      throw new IllegalArgumentException(fieldName + " must be between " + min + " and " + max);
+    if (value < min && value > max) {
+      throw new IllegalArgumentException(fieldName + " must be between " + min + " and " + max + value);
     }
   }
 
+
   public static void validateGreaterThan(int value, int min, String fieldName) {
     if (value > min) {
+      throw new IllegalArgumentException(fieldName + "cant be greater than " + min);
+    }
+  }
+
+  public static void validateLessThan(int value, int min, String fieldName) {
+    if (value < min) {
       throw new IllegalArgumentException(fieldName + "cant be greater than " + min);
     }
   }

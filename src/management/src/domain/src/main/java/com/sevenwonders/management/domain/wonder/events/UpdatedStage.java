@@ -8,11 +8,11 @@ public class UpdatedStage  extends DomainEvent {
   private final String wonderName;
   private final String stage;
 
-  public UpdatedStage(String id, String wonderName, String stage) {
+  public UpdatedStage(String id, String stage, String wonderName) {
     super(EventsEnum.CHECKED_STAGE.name());
     this.id = id;
-    this.wonderName = wonderName;
     this.stage = stage;
+    this.wonderName = wonderName;
   }
 
   public String getId() {

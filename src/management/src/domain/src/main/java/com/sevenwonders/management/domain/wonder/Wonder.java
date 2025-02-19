@@ -29,10 +29,10 @@ private Vault vault;
 private Stage stage;
 
 // region Constructors
-public Wonder(String id, String name, String mode){
+public Wonder(String name, String mode){
   super(new WonderId());
   subscribe(new WonderHandler(this));
-  apply(new AssignedWonder(id, name, mode));
+  apply(new AssignedWonder(name, mode));
 
 }
 
@@ -61,9 +61,6 @@ private Wonder(WonderId identity){
     this.mode = mode;
   }
 
-  public List<Card> getCards() {
-    return cards;
-  }
 
   public void setCards(List<Card> cards) {
     this.cards = cards;
@@ -97,12 +94,12 @@ private Wonder(WonderId identity){
   //endregion
 
 //region Domain Actions
-public void assignedWonder(String id, String name, String mode){
-  apply(new AssignedWonder(id, name, mode));
+public void assignedWonder( String name, String mode){
+  apply(new AssignedWonder( name, mode));
 }
 
-public void updateStage(String id ,String wonderName, String stage){
-  apply(new UpdatedStage(id, wonderName, stage));
+public void updateStage(String id , String stage,String wonderName){
+  apply(new UpdatedStage(id, stage, wonderName));
 }
 
 public void checkStage(String id, String stage, String wonderName){
@@ -126,15 +123,6 @@ public void calculateResources(String id, String wonderName, Integer coins, List
 }
 
 //endregion
-
-
-  public void validateStage(String event){
-  if (!stage.getName().getValue().equals(event)) {
-    throw new IllegalArgumentException("Stage cant be different from current stage");
-  }
-
-}
-
 
   public static Wonder from(final String identity, final List<DomainEvent> events){
 

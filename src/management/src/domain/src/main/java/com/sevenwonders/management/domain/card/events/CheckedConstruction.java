@@ -20,7 +20,6 @@ public class CheckedConstruction extends DomainEvent {
     this.effect = effect;
   }
 
-
   public String getId() {
     return id;
   }

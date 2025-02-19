@@ -44,9 +44,6 @@ public class CardHandler extends DomainActionsContainer {
   public Consumer<? extends DomainEvent> checkedConstruction(Card card) {
     return (CheckedConstruction event) -> {
       Construction construction = card.getConstruction();
-      if (construction == null) {
-        throw new IllegalStateException("Construction not initialized");
-      }
 
       String validatedStatus = construction.checkStatus(event.getStatus());
       construction.setStatus(Status.of(validatedStatus));
@@ -65,11 +62,6 @@ public class CardHandler extends DomainActionsContainer {
 
   public Consumer<? extends DomainEvent> checkedRequirement(Card card) {
     return (CheckedRequirement event) -> {
-      Requirement currentRequirement = card.getRequirement();
-
-      if (currentRequirement == null) {
-        throw new IllegalStateException("Requirement not initialized");
-      }
 
       Requirement updatedRequirement = new Requirement(
         Amount.of(event.getPrice()),
@@ -80,7 +72,6 @@ public class CardHandler extends DomainActionsContainer {
       card.setRequirement(updatedRequirement);
     };
   }
-
 
   public Consumer<? extends DomainEvent> discardedCard(Card card) {
     return (DiscardedCard event) -> {
@@ -96,6 +87,8 @@ public class CardHandler extends DomainActionsContainer {
           MinimumPlayers.of(0) // Reset minimum players when discarded
         );
         card.setRequirement(discardedRequirement);
+      }else{
+        card.setRequirement(null);
       }
 
       if (event.getConstructions() != null) {
@@ -106,18 +99,15 @@ public class CardHandler extends DomainActionsContainer {
           Effect.of("DISCARDED")
         );
         card.setConstruction(discardedConstruction);
+      }else{
+        card.setConstruction(null);
       }
     };
   }
 
-
   public Consumer<? extends DomainEvent> discardConstruction(Card card) {
     return (DiscardedConstruction event) -> {
       Construction currentConstruction = card.getConstruction();
-
-      if (currentConstruction == null) {
-        throw new IllegalStateException("Construction not initialized");
-      }
 
       String updatedStatus = currentConstruction.updateStatus("discarded");
 
@@ -131,8 +121,6 @@ public class CardHandler extends DomainActionsContainer {
       card.setConstruction(discardedConstruction);
     };
   }
-
-
 
   public Consumer<? extends DomainEvent> selectedCard(Card card) {
     return (SelectedCard event) -> {
@@ -166,14 +154,8 @@ public class CardHandler extends DomainActionsContainer {
     };
   }
 
-
   public Consumer<? extends DomainEvent> updatedRequirement(Card card) {
     return (UpdatedRequirement event) -> {
-      Requirement currentRequirement = card.getRequirement();
-
-      if (currentRequirement == null) {
-        throw new IllegalStateException("Requirement not initialized");
-      }
 
       Requirement updatedRequirement = new Requirement(
         Amount.of(event.getPrice()),
@@ -185,14 +167,9 @@ public class CardHandler extends DomainActionsContainer {
     };
   }
 
-
   public Consumer<? extends DomainEvent> validateConstruction(Card card) {
     return (ValidatedConstruction event) -> {
       Construction currentConstruction = card.getConstruction();
-
-      if (currentConstruction == null) {
-        throw new IllegalStateException("Construction not initialized");
-      }
 
       String validatedStatus = currentConstruction.checkStatus(event.getStatus());
       String validatedEffect = currentConstruction.checkEffect(event.getEffect());
@@ -210,11 +187,6 @@ public class CardHandler extends DomainActionsContainer {
 
   public Consumer<? extends DomainEvent> validateRequirement(Card card) {
     return (ValidatedRequirement event) -> {
-      Requirement currentRequirement = card.getRequirement();
-
-      if (currentRequirement == null) {
-        throw new IllegalStateException("Requirement not initialized");
-      }
 
       Requirement validatedRequirement = new Requirement(
         Amount.of(event.getPrice()),
