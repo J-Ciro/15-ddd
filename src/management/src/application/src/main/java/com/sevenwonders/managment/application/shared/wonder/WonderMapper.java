@@ -1,4 +1,4 @@
-package shared.wonder;
+package com.sevenwonders.managment.application.shared.wonder;
 
 import com.sevenwonders.management.domain.card.Card;
 import com.sevenwonders.management.domain.wonder.Wonder;

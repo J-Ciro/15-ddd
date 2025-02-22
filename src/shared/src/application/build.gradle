@@ -1,7 +1,0 @@
-dependencies {
-    implementation 'io.projectreactor:reactor-core:3.6.8'
-    implementation(project(':shared:application'))
-    implementation(project(':shared:domain'))
-    implementation(project(':management:domain'))
-
-}

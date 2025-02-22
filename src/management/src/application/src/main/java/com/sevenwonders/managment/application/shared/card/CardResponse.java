@@ -1,4 +1,4 @@
-package shared.card;
+package com.sevenwonders.managment.application.shared.card;
 
 import java.util.List;
 

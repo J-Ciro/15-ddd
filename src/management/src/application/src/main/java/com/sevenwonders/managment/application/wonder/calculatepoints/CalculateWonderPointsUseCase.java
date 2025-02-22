@@ -3,9 +3,9 @@ package com.sevenwonders.managment.application.wonder.calculatepoints;
 import com.sevenwonders.management.domain.wonder.Wonder;
 import com.sevenwonders.managment.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
-import shared.repositories.IEventsRepository;
-import shared.wonder.WonderMapper;
-import shared.wonder.WonderResponse;
+import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.wonder.WonderMapper;
+import com.sevenwonders.managment.application.shared.wonder.WonderResponse;
 
 public class CalculateWonderPointsUseCase implements ICommandUseCase<CalculateWonderPointsRequest, Mono<WonderResponse>> {
   private final IEventsRepository repository;
@@ -26,4 +26,5 @@ public class CalculateWonderPointsUseCase implements ICommandUseCase<CalculateWo
         return WonderMapper.mapToWonder(wonder);
       });
   }
+
 }

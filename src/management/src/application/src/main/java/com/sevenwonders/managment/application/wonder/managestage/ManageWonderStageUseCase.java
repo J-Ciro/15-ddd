@@ -4,9 +4,9 @@ import com.sevenwonders.management.domain.wonder.Wonder;
 import com.sevenwonders.managment.application.ICommandUseCase;
 
 import reactor.core.publisher.Mono;
-import shared.repositories.IEventsRepository;
-import shared.wonder.WonderMapper;
-import shared.wonder.WonderResponse;
+import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.wonder.WonderMapper;
+import com.sevenwonders.managment.application.shared.wonder.WonderResponse;
 
 public class ManageWonderStageUseCase  implements ICommandUseCase<ManageWonderStageRequest, Mono<WonderResponse>> {
 

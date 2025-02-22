@@ -1,4 +1,4 @@
-package shared.wonder;
+package com.sevenwonders.managment.application.shared.wonder;
 
 import java.util.List;
 

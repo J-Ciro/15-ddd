@@ -1,4 +1,4 @@
-package shared.card;
+package com.sevenwonders.managment.application.shared.card;
 
 import com.sevenwonders.management.domain.card.Card;
 import com.sevenwonders.management.domain.card.entities.Construction;

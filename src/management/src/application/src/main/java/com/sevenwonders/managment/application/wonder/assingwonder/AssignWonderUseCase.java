@@ -3,9 +3,9 @@ package com.sevenwonders.managment.application.wonder.assingwonder;
 import com.sevenwonders.management.domain.wonder.Wonder;
 import com.sevenwonders.managment.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
-import shared.repositories.IEventsRepository;
-import shared.wonder.WonderResponse;
-import static shared.wonder.WonderMapper.mapToWonder;
+import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.wonder.WonderResponse;
+import static com.sevenwonders.managment.application.shared.wonder.WonderMapper.mapToWonder;
 
 
 public class AssignWonderUseCase implements ICommandUseCase<AssignWonderRequest, Mono<WonderResponse>> {

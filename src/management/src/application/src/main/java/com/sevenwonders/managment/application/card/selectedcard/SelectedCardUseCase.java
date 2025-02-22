@@ -2,9 +2,9 @@ package com.sevenwonders.managment.application.card.selectedcard;
 import com.sevenwonders.management.domain.card.Card;
 import com.sevenwonders.managment.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
-import shared.card.CardMapper;
-import shared.card.CardResponse;
-import shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.card.CardMapper;
+import com.sevenwonders.managment.application.shared.card.CardResponse;
+import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
 
 public class SelectedCardUseCase implements ICommandUseCase<SelectedCardRequest, Mono<CardResponse>> {
   private final IEventsRepository repository;

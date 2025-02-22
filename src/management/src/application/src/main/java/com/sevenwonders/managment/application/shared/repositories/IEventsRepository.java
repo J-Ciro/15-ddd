@@ -1,4 +1,4 @@
-package shared.repositories;
+package com.sevenwonders.managment.application.shared.repositories;
 
 import com.sevenwonders.shared.domain.generic.DomainEvent;
 import reactor.core.publisher.Flux;
