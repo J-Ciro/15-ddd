@@ -12,7 +12,6 @@ public class AssignedWonder extends DomainEvent {
 
   public AssignedWonder( String name, String mode) {
     super(EventsEnum.ASSIGNED_WONDER.name());
-
     this.wonderName = name;
     this.mode = mode;
   }

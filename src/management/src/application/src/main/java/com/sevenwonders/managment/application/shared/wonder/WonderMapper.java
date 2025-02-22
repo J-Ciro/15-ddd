@@ -11,8 +11,8 @@ public class WonderMapper {
     return new WonderResponse(
       wonder.getIdentity().getValue(),
       wonder.getName().getValue(),
-      wonder.getMode().getValue(),
       mapToStage(wonder.getStage()),
+      wonder.getMode().getValue(),
       mapToVault(wonder.getVault()),
       mapToConflict(wonder.getConflict()),
       wonder.getCards().stream()

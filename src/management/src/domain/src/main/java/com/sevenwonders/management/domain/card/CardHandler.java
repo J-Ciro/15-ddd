@@ -24,6 +24,7 @@ import com.sevenwonders.management.domain.wonder.values.Resources;
 import com.sevenwonders.shared.domain.generic.DomainActionsContainer;
 import com.sevenwonders.shared.domain.generic.DomainEvent;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class CardHandler extends DomainActionsContainer {
@@ -61,7 +62,36 @@ public class CardHandler extends DomainActionsContainer {
   }
 
   public Consumer<? extends DomainEvent> checkedRequirement(Card card) {
+//    return (CheckedRequirement event) -> {
+//
+//      Requirement updatedRequirement = new Requirement(
+//        Amount.of(event.getPrice()),
+//        Resources.of(event.getResources()),
+//        MinimumPlayers.of(event.getMinimumPlayers())
+//      );
+//
+//      card.setRequirement(updatedRequirement);
+//    };
+
     return (CheckedRequirement event) -> {
+      Requirement currentRequirement = card.getRequirement();
+
+      if (event.getPrice() < currentRequirement.getAmount().getValue()) {
+        throw new IllegalStateException("Insufficient coins to add card. Required: " +
+          currentRequirement.getAmount().getValue() + ", Available: " + event.getPrice());
+      }
+
+      List<String> requiredResources = currentRequirement.getResource().getValue();
+      List<String> availableResources = event.getResources();
+      if (!availableResources.containsAll(requiredResources)) {
+        throw new IllegalStateException("Insufficient resources to add card. Required: " +
+          requiredResources + ", Available: " + availableResources);
+      }
+
+      if (event.getMinimumPlayers() < currentRequirement.getMinimumPlayers().getValue()) {
+        throw new IllegalStateException("Not enough players to add card. Required: " +
+          currentRequirement.getMinimumPlayers().getValue() + ", Available: " + event.getMinimumPlayers());
+      }
 
       Requirement updatedRequirement = new Requirement(
         Amount.of(event.getPrice()),

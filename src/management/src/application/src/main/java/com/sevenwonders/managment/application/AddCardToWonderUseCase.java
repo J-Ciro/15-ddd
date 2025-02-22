@@ -19,50 +19,42 @@ public class AddCardToWonderUseCase implements ICommandUseCase<AddCardToWonderRe
 
   @Override
   public Mono<WonderResponse> execute(AddCardToWonderRequest request) {
-    return Mono.zip(
-      getWonder(request.getWonderId()),
-      getCard(request.getCardId())
-    ).flatMap(tuple -> {
-      Wonder wonder = tuple.getT1();
-      Card card = tuple.getT2();
-
-      card.checkRequirement(
-        card.getIdentity().getValue(),
-        request.getPrice(),
-        request.getResources(),
-        request.getMinimumPlayers()
-      );
-
-      card.checkConstruction(
-        card.getIdentity().getValue(),
-        "IN_PROGRESS",
-        false,
-        0,
-        "NONE"
-      );
-
-      wonder.updateVault(
-        card.getIdentity().getValue(),
-        wonder.getName().getValue(),
-        calculateRemainingCoins(wonder, card),
-        calculateRemainingResources(wonder, card)
-      );
-      wonder.getUncommittedEvents().forEach(repository::save);
-      card.getUncommittedEvents().forEach(repository::save);
-      return Mono.just(WonderMapper.mapToWonder(wonder));
-    });
-  }
-
-  private Mono<Wonder> getWonder(String wonderId) {
-    return repository.findEventsByAggregatedId(wonderId)
+    return repository.findEventsByAggregatedId(request.getAggregateId())
       .collectList()
-      .map(events -> Wonder.from(wonderId, events));
-  }
+      .map(wonderEvents -> Wonder.from(request.getAggregateId(), wonderEvents))
+      .flatMap(wonder ->
+        repository.findEventsByAggregatedId(request.getCardId())
+          .collectList()
+          .map(cardEvents -> Card.from(request.getCardId(), cardEvents))
+          .map(card -> {
+            card.checkRequirement(
+              card.getIdentity().getValue(),
+              request.getPrice(),
+              request.getResources(),
+              request.getMinimumPlayers()
+            );
 
-  private Mono<Card> getCard(String cardId) {
-    return repository.findEventsByAggregatedId(cardId)
-      .collectList()
-      .map(events -> Card.from(cardId, events));
+            card.checkConstruction(
+              card.getIdentity().getValue(),
+              "INPROGRESS",
+              false,
+              0,
+              "NONE"
+            );
+
+            wonder.updateVault(
+              card.getIdentity().getValue(),
+              wonder.getName().getValue(),
+              calculateRemainingCoins(wonder, card),
+              calculateRemainingResources(wonder, card)
+            );
+
+            wonder.getUncommittedEvents().forEach(repository::save);
+            card.getUncommittedEvents().forEach(repository::save);
+
+            return WonderMapper.mapToWonder(wonder);
+          })
+      );
   }
 
   private Integer calculateRemainingCoins(Wonder wonder, Card card) {
@@ -81,4 +73,5 @@ public class AddCardToWonderUseCase implements ICommandUseCase<AddCardToWonderRe
 
     return currentResources;
   }
+
 }

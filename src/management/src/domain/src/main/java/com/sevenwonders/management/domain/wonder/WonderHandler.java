@@ -49,7 +49,7 @@ public class WonderHandler extends DomainActionsContainer {
       wonder.setCards(new ArrayList<>());
       wonder.setConflict(new Conflict(Marks.of(new ArrayList<>()), Shields.of(0), Location.of("")));
       wonder.setVault(new Vault(Coins.of(3), Resources.of(List.of("WOOD", "IRON"))));
-      wonder.setStage(new Stage(Name.of("ERA 1"),  Resources.of(List.of("CLAY", "CLAY")), Status.of("STARTED")));
+      wonder.setStage(new Stage(Name.of("ERA 1"), Resources.of(List.of("CLAY", "CLAY")), Status.of("STARTED")));
     };
   }
 
@@ -140,6 +140,8 @@ public Consumer<? extends DomainEvent> validateStage(Wonder wonder){
     List<String> requiredResources = event.getResources();
     List<String> availableResources = currentVault.getResources().getValue();
 
+    if (currentStage.getStatus().getValue().equals("BUILD")) {
+
     wonder.setStage(new Stage(
       currentStage.getName(),
       currentStage.getResources(),
@@ -153,6 +155,8 @@ public Consumer<? extends DomainEvent> validateStage(Wonder wonder){
       Coins.of(currentVault.getCoins().getValue() - event.getCoins()),
       Resources.of(remainingResources)
     ));
+    }
+
   };
 
 

@@ -10,13 +10,14 @@ public class CheckedStage extends DomainEvent {
   private final String stage;
 
 
-  public CheckedStage(String id,  String stage, String wonderName) {
+  public CheckedStage(String id, String wonderName, String stage) {
     super(EventsEnum.CHECKED_STAGE.name());
     this.id = id;
-    this.stage = stage;
     this.wonderName = wonderName;
+    this.stage = stage;
 
   }
+
 
   public String getId() {
     return id;
@@ -29,6 +30,4 @@ public class CheckedStage extends DomainEvent {
   public String getStage() {
     return stage;
   }
-
-
 }

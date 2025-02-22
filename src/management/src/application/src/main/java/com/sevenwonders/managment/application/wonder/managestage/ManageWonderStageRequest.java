@@ -6,13 +6,11 @@ import java.util.List;
 
 public class ManageWonderStageRequest extends Request {
 
-
   private final String wonderId;
   private final String wonderName;
   private final String stageName;
   private final Integer requiredCoins;
   private final List<String> requiredResources;
-
 
   public ManageWonderStageRequest(String wonderId, String wonderName, String stageName, Integer requiredCoins, List<String> requiredResources) {
     super(wonderId);

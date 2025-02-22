@@ -20,9 +20,9 @@ public class ManageWonderStageUseCase  implements ICommandUseCase<ManageWonderSt
   @Override
   public Mono<WonderResponse> execute(ManageWonderStageRequest request) {
     return repository
-      .findEventsByAggregatedId(request.getWonderId())
+      .findEventsByAggregatedId(request.getAggregateId())
       .collectList()
-      .map(events -> Wonder.from(request.getWonderId(), events))
+      .map(events -> Wonder.from(request.getAggregateId(), events))
       .flatMap(wonder -> {
         wonder.checkStage(
           request.getWonderId(),

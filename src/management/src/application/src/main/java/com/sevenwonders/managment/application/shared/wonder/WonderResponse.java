@@ -11,8 +11,9 @@ public class WonderResponse {
   private final Conflict conflict;
   private final List<Card> cards;
 
-  public WonderResponse(String wonderId, String wonderName, String mode,
-                        Stage stage, Vault vault, Conflict conflict,
+  public WonderResponse(String wonderId, String wonderName, Stage stage ,
+                        String mode
+                        , Vault vault, Conflict conflict,
                         List<Card> cards) {
     this.wonderId = wonderId;
     this.wonderName = wonderName;
