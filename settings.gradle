@@ -1,7 +1,14 @@
 rootProject.name = 'seven-wonders'
 
 include ':shared:domain'
+include 'shared:application'
+
 include ':management:domain'
+include ':management:application'
 
 project(':shared:domain').projectDir = file('./src/shared/src/domain')
+project(':shared:application').projectDir = file('./src/shared/src/application')
 project(':management:domain').projectDir = file('./src/management/src/domain')
+project(':management:application').projectDir = file('./src/management/src/application')
+
+

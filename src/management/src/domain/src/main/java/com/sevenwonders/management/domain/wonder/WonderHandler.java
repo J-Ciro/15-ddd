@@ -91,15 +91,12 @@ public class WonderHandler extends DomainActionsContainer {
       Integer currentCoins = wonder.getVault().getCoins().getValue();
       wonder.validateStage(event.getId(), event.getWonderName(), event.getStage(), currentCoins , currentResources);
 
-
     };
   }
 
   public Consumer<? extends DomainEvent> updateStage(Wonder wonder) {
     return (UpdatedStage event) -> {
       Stage currentStage = wonder.getStage();
-
-
 
       Stage updatedStage = new Stage(
           Name.of(event.getStage()),

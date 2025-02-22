@@ -61,6 +61,9 @@ private Wonder(WonderId identity){
     this.mode = mode;
   }
 
+  public List<Card> getCards() {
+    return cards;
+  }
 
   public void setCards(List<Card> cards) {
     this.cards = cards;
@@ -91,7 +94,7 @@ private Wonder(WonderId identity){
   }
 
 
-  //endregion
+//endregion
 
 //region Domain Actions
 public void assignedWonder( String name, String mode){
