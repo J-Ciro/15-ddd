@@ -6,7 +6,6 @@ import com.sevenwonders.shared.domain.generic.DomainEvent;
 
 public class SelectedCard extends DomainEvent {
 
-  private final String id;
   private final String name;
   private final Integer era;
   private final String type;
@@ -15,9 +14,8 @@ public class SelectedCard extends DomainEvent {
   private final Construction constructions;
 
 
-  public SelectedCard(String id, String name, Integer era, String type, String color, Requirement requirements, Construction constructions) {
+  public SelectedCard( String name, Integer era, String type, String color, Requirement requirements, Construction constructions) {
     super(EventsEnum.SELECTED_CARD.name());
-    this.id = id;
     this.name = name;
     this.era = era;
     this.type = type;
@@ -26,9 +24,6 @@ public class SelectedCard extends DomainEvent {
     this.constructions = constructions;
   }
 
-  public String getId() {
-    return id;
-  }
 
   @Override
   public String getName() {

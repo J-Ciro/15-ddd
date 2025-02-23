@@ -6,7 +6,6 @@ import com.sevenwonders.managment.application.Request;
 
 public class SelectedCardRequest extends Request {
 
-  private final String id;
   private final String name;
   private final Integer era;
   private final String type;
@@ -14,9 +13,8 @@ public class SelectedCardRequest extends Request {
   private final Construction construction;
   private final Requirement requirement;
 
-  public SelectedCardRequest(String id, String name, Integer era, String type, String color, Construction construction, Requirement requirement) {
-    super(id);
-    this.id = id;
+  public SelectedCardRequest( String name, Integer era, String type, String color, Construction construction, Requirement requirement) {
+    super(null);
     this.name = name;
     this.era = era;
     this.type = type;
@@ -25,10 +23,6 @@ public class SelectedCardRequest extends Request {
     this.requirement = requirement;
   }
 
-
-  public String getId() {
-    return id;
-  }
 
   public String getName() {
     return name;

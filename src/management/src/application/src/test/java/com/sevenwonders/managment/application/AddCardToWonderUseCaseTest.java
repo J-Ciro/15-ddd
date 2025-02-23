@@ -36,9 +36,7 @@ class AddCardToWonderUseCaseTest {
 
 
   @Test
-  void executeSuccessfulCardAddition() {
-
-
+  void executeSuccess() {
     // Mock wonder events
     Mockito.when(repository.findEventsByAggregatedId("wonder123"))
       .thenReturn(Flux.just(
@@ -49,9 +47,8 @@ class AddCardToWonderUseCaseTest {
       .thenReturn(Flux.just(
         new SelectedCard(
           "card123",
-          "Bazaar",
-           1,
-          "CIVIL",
+          1,
+           "CIVIL",
           "BLUE",
           new Requirement(
             RequirementId.of("R1"),
@@ -97,7 +94,7 @@ class AddCardToWonderUseCaseTest {
 
 
   @Test
-  void executeFailsWhenInsufficientResources() {
+  void executeNoEnoughResources() {
     String wonderAggregateId = "W1";
     String cardAggregateId = "C1";
 
@@ -110,7 +107,6 @@ class AddCardToWonderUseCaseTest {
       .thenReturn(Flux.just(
         new SelectedCard(
           cardAggregateId,
-          "Bazaar",
           1,
           "CIVIL",
           "BLUE",

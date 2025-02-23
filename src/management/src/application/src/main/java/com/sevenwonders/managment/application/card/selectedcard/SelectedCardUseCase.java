@@ -17,7 +17,6 @@ public class SelectedCardUseCase implements ICommandUseCase<SelectedCardRequest,
   public Mono<CardResponse> execute(SelectedCardRequest request) {
 
     Card card = new Card(
-      request.getId(),
       request.getName(),
       request.getEra(),
       request.getType(),

@@ -32,10 +32,10 @@ public class Card extends AggregateRoot<CardId> {
 
 
   //region Constructors
-  public Card(String id, String name, Integer era, String type, String color, Construction construction, Requirement requirement) {
+  public Card( String name, Integer era, String type, String color, Construction construction, Requirement requirement) {
     super(new CardId());
     subscribe(new CardHandler(this));
-    apply(new SelectedCard(id, name, era, type, color, requirement, construction));
+    apply(new SelectedCard( name, era, type, color, requirement, construction));
   }
 
   private Card(CardId identity) {
@@ -99,8 +99,8 @@ public class Card extends AggregateRoot<CardId> {
   //endregion
 
   //region Domain Actions
-public void selectedCard(String id, String name, Integer era, String type, String color, Requirement requirements, Construction constructions){
-  apply(new SelectedCard(id, name, era, type, color, requirements, constructions));
+public void selectedCard( String name, Integer era, String type, String color, Requirement requirements, Construction constructions){
+  apply(new SelectedCard( name, era, type, color, requirements, constructions));
 }
 
 public void discardedCard(String id, String name, Integer era, String type, String color, Requirement requirements, Construction constructions){
