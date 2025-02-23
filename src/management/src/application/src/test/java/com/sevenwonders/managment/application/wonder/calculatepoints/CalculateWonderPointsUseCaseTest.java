@@ -22,7 +22,6 @@ class CalculateWonderPointsUseCaseTest {
 
   @Test
   void executeSuccess() {
-    // Arrange
     Mockito.when(repository.findEventsByAggregatedId(Mockito.anyString()))
       .thenReturn(Flux.just(
         new AssignedWonder("Pyramid", "NIGHT"),
@@ -42,6 +41,5 @@ class CalculateWonderPointsUseCaseTest {
 
     Mockito.verify(repository).findEventsByAggregatedId(Mockito.anyString());
   }
-
 
 }

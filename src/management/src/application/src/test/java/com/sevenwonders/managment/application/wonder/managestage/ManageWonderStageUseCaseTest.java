@@ -43,4 +43,48 @@ class ManageWonderStageUseCaseTest {
 
     Mockito.verify(repository).findEventsByAggregatedId(Mockito.anyString());
   }
+
+
+  @Test
+  void executeStageNotFound() {
+
+    Mockito.when(repository.findEventsByAggregatedId(Mockito.anyString()))
+      .thenReturn(Flux.just(
+        new AssignedWonder("Pyramid", "NIGHT")
+      ));
+
+    ManageWonderStageRequest request = new ManageWonderStageRequest("123", "Pyramid", null, 5, List.of("Wood", "Stone"));
+
+    StepVerifier
+      .create(useCase.execute(request))
+      .expectErrorMatches(throwable ->
+        throwable instanceof IllegalStateException &&
+          throwable.getMessage().contains("Current stage does not match validated stage"))
+      .verify();
+
+    Mockito.verify(repository).findEventsByAggregatedId(Mockito.anyString());
+  }
+
+  @Test
+  void executePreviousStageNotCompleted() {
+    Mockito.when(repository.findEventsByAggregatedId(Mockito.anyString()))
+      .thenReturn(Flux.just(
+        new AssignedWonder("Pyramid", "NIGHT")
+      ));
+
+    ManageWonderStageRequest request = new ManageWonderStageRequest(
+      "123",
+      "Pyramid",
+      "ERA 2",
+      5,
+      List.of("Wood", "Stone")
+    );
+
+    StepVerifier
+      .create(useCase.execute(request))
+      .expectErrorMatches(throwable ->
+        throwable instanceof IllegalStateException &&
+          throwable.getMessage().contains("Stage mismatch: Current stage does not match validated stage"))
+      .verify();
+  }
 }

@@ -62,16 +62,6 @@ public class CardHandler extends DomainActionsContainer {
   }
 
   public Consumer<? extends DomainEvent> checkedRequirement(Card card) {
-//    return (CheckedRequirement event) -> {
-//
-//      Requirement updatedRequirement = new Requirement(
-//        Amount.of(event.getPrice()),
-//        Resources.of(event.getResources()),
-//        MinimumPlayers.of(event.getMinimumPlayers())
-//      );
-//
-//      card.setRequirement(updatedRequirement);
-//    };
 
     return (CheckedRequirement event) -> {
       Requirement currentRequirement = card.getRequirement();

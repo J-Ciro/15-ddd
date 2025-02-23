@@ -32,7 +32,7 @@ class ValidateCardConstructionUseCaseTest {
   }
 
   @Test
-  void executeSuccessfulConstructionValidation() {
+  void executeCardConstruction() {
 
     Mockito.when(repository.findEventsByAggregatedId(Mockito.anyString()))
       .thenReturn(Flux.just(
@@ -83,6 +83,5 @@ class ValidateCardConstructionUseCaseTest {
 
     Mockito.verify(repository).findEventsByAggregatedId(Mockito.anyString());
   }
-
 
 }

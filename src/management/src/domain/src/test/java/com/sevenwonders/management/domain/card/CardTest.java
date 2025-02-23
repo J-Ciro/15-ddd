@@ -13,6 +13,7 @@ import com.sevenwonders.management.domain.card.events.ValidatedConstruction;
 import com.sevenwonders.management.domain.card.events.ValidatedRequirement;
 import com.sevenwonders.management.domain.card.values.Amount;
 import com.sevenwonders.management.domain.card.values.Chained;
+import com.sevenwonders.management.domain.card.values.ConstructionId;
 import com.sevenwonders.management.domain.card.values.Effect;
 import com.sevenwonders.management.domain.card.values.MinimumPlayers;
 import com.sevenwonders.management.domain.card.values.RequirementId;
@@ -79,8 +80,8 @@ class CardTest {
       MinimumPlayers.of(3)
     );
 
-    card = new Card("123abc", "Altar", 1, "CIVILIAN", "BLUE", construction, requirement);
-    card2 = new Card("123abc", "Altar", 1, "CIVILIAN", "BLUE", construction2, requirement2);
+    card = new Card("Altar",  1, "CIVILIAN", "BLUE", construction, requirement);
+    card2 = new Card("Altar", 1, "CIVILIAN", "BLUE", construction2, requirement2);
 
 
 
@@ -181,7 +182,7 @@ class CardTest {
 
   @Test
   void selectedCard() {
-    card.selectedCard("123abc", "Temple", 2, "MILITARY", "RED", requirement, construction);
+    card.selectedCard( "Temple", 2, "MILITARY", "RED", requirement, construction);
     assertEquals("Temple", card.getName().getValue());
     assertEquals(2, card.getEra().getValue());
     assertEquals("MILITARY", card.getType().getValue());
@@ -260,15 +261,26 @@ class CardTest {
 
   @Test
   void testFromMethod() {
-    String cardId = "123abc";
+
     List<DomainEvent> events = List.of(
-      new SelectedCard(cardId, "Altar", 1, "CIVILIAN", "BLUE", null, null),
-      new CheckedRequirement(cardId, 3, List.of("WOOD"), 2)
+      new SelectedCard("Altar", 1, "CIVILIAN", "BLUE",
+        new Requirement(
+          Amount.of(3),
+          Resources.of(List.of("WOOD")),
+          MinimumPlayers.of(2)),
+
+        new Construction(
+        ConstructionId.of("12"),
+        Status.of("ET"),
+        Chained.of(false),
+        Shields.of(3),
+        Effect.of("VICTORYPOINTS"))),
+
+      new CheckedRequirement("123abc", 3, List.of("WOOD"), 2)
     );
 
-    Card card = Card.from(cardId, events);
+    Card card = Card.from("123abc", events);
     assertNotNull(card);
-    assertEquals(cardId, card.getIdentity().getValue());
     assertEquals("Altar", card.getName().getValue());
     assertEquals(1, card.getEra().getValue());
     assertEquals("CIVILIAN", card.getType().getValue());

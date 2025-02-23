@@ -27,7 +27,7 @@ class UpdateWonderResourcesUseCaseTest {
 
 
   @Test
-  void executeSuccess() {
+  void executeUpdateWonderResources() {
 
     Mockito.when(repository.findEventsByAggregatedId(Mockito.anyString()))
       .thenReturn(Flux.just(
@@ -51,5 +51,31 @@ class UpdateWonderResourcesUseCaseTest {
     Mockito.verify(repository).findEventsByAggregatedId(Mockito.anyString());
   }
 
+
+  @Test
+  void executeWithEmptyResources() {
+    Mockito.when(repository.findEventsByAggregatedId(Mockito.anyString()))
+      .thenReturn(Flux.just(
+        new AssignedWonder("Alexandria", "NIGHT")
+      ));
+
+    UpdateWonderResourcesRequest request = new UpdateWonderResourcesRequest(
+      "aggregated1",
+      "W12",
+      "Alexandria",
+      0,
+      List.of()
+    );
+
+    StepVerifier
+      .create(useCase.execute(request))
+      .expectErrorMatches(throwable ->
+        throwable instanceof IllegalArgumentException &&
+          throwable.getMessage().contains("can't be empty"))
+      .verify();
+
+
+    Mockito.verify(repository).findEventsByAggregatedId(Mockito.anyString());
+  }
 
 }

@@ -20,10 +20,9 @@ class AssignWonderUseCaseTest {
   }
 
 
-
   @Test
   void executeSuccess() {
-    AssignWonderRequest request = new AssignWonderRequest("AggregateId", "WonderName", "Mode");
+    AssignWonderRequest request = new AssignWonderRequest("AggregateId", "WonderName", "DAY");
     StepVerifier
       .create(useCase.execute(request))
       .assertNext(response -> {
@@ -33,5 +32,4 @@ class AssignWonderUseCaseTest {
       })
       .verifyComplete();
   }
-
 }

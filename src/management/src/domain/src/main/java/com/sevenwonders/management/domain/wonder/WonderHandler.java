@@ -44,6 +44,10 @@ public class WonderHandler extends DomainActionsContainer {
 
   public Consumer<? extends DomainEvent> assignedWonder(Wonder wonder) {
     return (AssignedWonder event) -> {
+
+      if (!event.getMode().equals("DAY") && !event.getMode().equals("NIGHT")) {
+        throw new IllegalArgumentException("Invalid game mode");
+      }
       wonder.setName(Name.of(event.getWonderName()));
       wonder.setMode(Mode.of(event.getMode()));
       wonder.setCards(new ArrayList<>());
@@ -97,6 +101,8 @@ public class WonderHandler extends DomainActionsContainer {
   public Consumer<? extends DomainEvent> updateStage(Wonder wonder) {
     return (UpdatedStage event) -> {
       Stage currentStage = wonder.getStage();
+
+
 
       Stage updatedStage = new Stage(
           Name.of(event.getStage()),

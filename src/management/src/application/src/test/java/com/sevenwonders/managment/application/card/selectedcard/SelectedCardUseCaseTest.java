@@ -30,8 +30,6 @@ class SelectedCardUseCaseTest {
   }
 
 
-
-
   @Test
   void executeSuccess() {
     SelectedCardRequest request = new SelectedCardRequest(

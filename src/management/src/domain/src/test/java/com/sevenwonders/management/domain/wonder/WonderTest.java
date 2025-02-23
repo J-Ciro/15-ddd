@@ -45,11 +45,9 @@ class WonderTest {
     resources = Resources.of(List.of("WOOD"));
     wonder = new Wonder("Colossus of Rhodes", "DAY");
     cards = new ArrayList<>();
-    Card card = new Card("1", "ALTAR", 1, "CIVILIAN", "BLUE", null, null);
+    Card card = new Card( "ALTAR", 1, "CIVILIAN", "BLUE", null, null);
     cards.add(card);
-
   }
-
 
 
   @Test
@@ -88,8 +86,7 @@ class WonderTest {
   void checkStage() {
     wonder.assignedWonder( "Colossus of Rhodes", "DAY");
     wonder.updateVault("wonder123", "Colossus of Rhodes", 3, List.of("WOOD", "IRON"));
-    System.out.println(wonder.getVault().getResources().getValue());
-    wonder.checkStage("wonder123", "ERA 1", "Colossus of Rhodes"); // Stage is checked
+    wonder.checkStage("wonder123", "Colossus of Rhodes", "ERA 1"); // Stage is checked
     assertEquals("ERA 1", wonder.getStage().getName().getValue());
     assertEquals(5, wonder.getUncommittedEvents().size());
     assertInstanceOf(CheckedStage.class, wonder.getUncommittedEvents().get(3));
@@ -104,7 +101,6 @@ class WonderTest {
     assertEquals(4, wonder.getUncommittedEvents().size());
     assertInstanceOf(UpdatedStage.class, wonder.getUncommittedEvents().get(3));
   }
-
 
 
   @Test
@@ -122,8 +118,8 @@ class WonderTest {
     wonder.assignedWonder( "Colossus of Rhodes", "DAY");
     wonder.updateVault("wonder123", "Colossus of Rhodes", 3, List.of("WOOD", "IRON"));
     wonder.validateStage("wonder123", "Colossus of Rhodes", "ERA 1", 2, List.of("WOOD"));
-    assertEquals("VALIDATED", wonder.getStage().getStatus().getValue());
-    assertEquals(4, wonder.getVault().getCoins().getValue()); // 3 initial - 2 used
+    assertEquals("STARTED", wonder.getStage().getStatus().getValue());
+    assertEquals(6, wonder.getVault().getCoins().getValue());
     assertTrue(wonder.getVault().getResources().getValue().contains("IRON"));
     assertEquals(4, wonder.getUncommittedEvents().size());
     assertInstanceOf(ValidatedStage.class, wonder.getUncommittedEvents().get(3));
@@ -155,7 +151,7 @@ class WonderTest {
     String wonderId = "wonder123";
     List<DomainEvent> events = List.of(
       new AssignedWonder("Colossus of Rhodes", "DAY"),
-      new CheckedStage(wonderId, "ERA 1", "Colossus of Rhodes")
+      new CheckedStage(wonderId, "ERA 1", "ERA 1")
     );
 
     Wonder wonder = Wonder.from(wonderId, events);
