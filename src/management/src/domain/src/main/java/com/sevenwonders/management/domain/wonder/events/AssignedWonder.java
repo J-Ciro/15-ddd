@@ -6,16 +6,18 @@ public class AssignedWonder extends DomainEvent {
 
 
 
-  private final String wonderName;
-  private final String mode;
+  private  String wonderName;
+  private  String mode;
 
+  public AssignedWonder() {
+    super(EventsEnum.ASSIGNED_WONDER.name());
+  }
 
   public AssignedWonder( String name, String mode) {
     super(EventsEnum.ASSIGNED_WONDER.name());
     this.wonderName = name;
     this.mode = mode;
   }
-
 
 
   public String getWonderName() {
@@ -25,4 +27,16 @@ public class AssignedWonder extends DomainEvent {
   public String getMode() {
     return mode;
   }
+
+  public void setWonderName(String wonderName) {
+    this.wonderName = wonderName;
+  }
+
+  public void setMode(String mode) {
+    this.mode = mode;
+  }
+
+
+
+
 }

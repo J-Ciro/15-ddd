@@ -5,9 +5,9 @@ import java.util.UUID;
 
 public abstract class DomainEvent {
 
-  private final Instant when;
-  private final String uuid;
-  private final String name;
+  private Instant when;
+  private String uuid;
+  private String name;
   private String aggregateRootId;
   private String aggregateName;
   private Long version;

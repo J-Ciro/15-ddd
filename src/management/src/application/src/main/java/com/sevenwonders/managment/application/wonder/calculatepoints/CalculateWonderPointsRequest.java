@@ -2,13 +2,15 @@ package com.sevenwonders.managment.application.wonder.calculatepoints;
 
 import com.sevenwonders.managment.application.Request;
 
+import java.util.List;
+
 public class CalculateWonderPointsRequest extends Request {
 
   private final String wonderId;
   private final Integer marks;
 
 
-  public CalculateWonderPointsRequest(String wonderId, Integer marks) {
+  public CalculateWonderPointsRequest(String wonderId, Integer  marks) {
     super(wonderId);
     this.wonderId = wonderId;
     this.marks = marks;
@@ -18,7 +20,7 @@ public class CalculateWonderPointsRequest extends Request {
     return wonderId;
   }
 
-  public Integer getMarks() {
+  public  Integer getMarks() {
     return marks;
   }
 

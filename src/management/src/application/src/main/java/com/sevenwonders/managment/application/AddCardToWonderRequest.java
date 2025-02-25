@@ -8,13 +8,7 @@ public class AddCardToWonderRequest extends Request {
   private final List<String> resources;
   private final Integer minimumPlayers;
 
-  public AddCardToWonderRequest(
-    String wonderAggregateId,
-    String cardId,
-    Integer price,
-    List<String> resources,
-    Integer minimumPlayers
-  ) {
+  public AddCardToWonderRequest(String wonderAggregateId, String cardId, Integer price, List<String> resources, Integer minimumPlayers) {
     super(wonderAggregateId);
     this.cardId = cardId;
     this.price = price;

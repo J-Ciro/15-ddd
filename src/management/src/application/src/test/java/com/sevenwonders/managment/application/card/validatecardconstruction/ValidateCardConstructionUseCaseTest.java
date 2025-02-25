@@ -11,7 +11,7 @@ import com.sevenwonders.management.domain.card.values.RequirementId;
 import com.sevenwonders.management.domain.card.values.Shields;
 import com.sevenwonders.management.domain.card.values.Status;
 import com.sevenwonders.management.domain.wonder.values.Resources;
-import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.ports.IEventsRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import reactor.core.publisher.Flux;
@@ -24,37 +24,37 @@ import static org.junit.jupiter.api.Assertions.*;
 class ValidateCardConstructionUseCaseTest {
 
   private final ValidateCardConstructionUseCase useCase;
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
   public ValidateCardConstructionUseCaseTest() {
-    repository = Mockito.mock(IEventsRepository.class);
+    repository = Mockito.mock(IEventsRepositoryPort.class);
     useCase = new ValidateCardConstructionUseCase(repository);
   }
 
   @Test
   void executeCardConstruction() {
 
-    Mockito.when(repository.findEventsByAggregatedId(Mockito.anyString()))
-      .thenReturn(Flux.just(
-        new SelectedCard(
-          "Bazaar",
-          1,
-          "CIVIL",
-          "BLUE",
-          new Requirement(
-            RequirementId.of("R1"),
-            Amount.of(3),
-            Resources.of(List.of("WOOD")),
-            MinimumPlayers.of(2)
-          ),
-          new Construction(
-            Status.of("INPROGRESS"),
-            Chained.of(false),
-            Shields.of(0),
-            Effect.of("NONE")
-          )
-        )
-      ));
+//    Mockito.when(repository.findEventsByAggregatedId(Mockito.anyString()))
+//      .thenReturn(Flux.just(
+//        new SelectedCard(
+//          "Bazaar",
+//          1,
+//          "CIVIL",
+//          "BLUE",
+//          new Requirement(
+//            RequirementId.of("R1"),
+//            Amount.of(3),
+//            Resources.of(List.of("WOOD")),
+//            MinimumPlayers.of(2)
+//          ),
+//          new Construction(
+//            Status.of("INPROGRESS"),
+//            Chained.of(false),
+//            Shields.of(0),
+//            Effect.of("NONE")
+//          )
+//        )
+//      ));
 
     ValidateCardConstructionRequest request = new ValidateCardConstructionRequest(
       "card123",

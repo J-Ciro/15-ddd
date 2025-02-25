@@ -1,7 +1,7 @@
 package com.sevenwonders.managment.application.wonder.assingwonder;
 
 
-import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.ports.IEventsRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import reactor.test.StepVerifier;
@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class AssignWonderUseCaseTest {
 
   private final AssignWonderUseCase useCase;
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
   public AssignWonderUseCaseTest() {
 
-    repository = Mockito.mock(IEventsRepository.class);
+    repository = Mockito.mock(IEventsRepositoryPort.class);
     useCase = new AssignWonderUseCase(repository);
   }
 

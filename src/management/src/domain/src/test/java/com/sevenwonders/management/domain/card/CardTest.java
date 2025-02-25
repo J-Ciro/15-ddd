@@ -76,7 +76,7 @@ class CardTest {
 
     Requirement requirement2 = new Requirement(
       Amount.of(3),
-      Resources.of(Collections.singletonList("WOOD")),
+      Resources.of(List.of("WOOD")),
       MinimumPlayers.of(3)
     );
 
@@ -182,6 +182,19 @@ class CardTest {
 
   @Test
   void selectedCard() {
+    Requirement requirement = new Requirement(
+      Amount.of(3),
+      Resources.of(List.of("WOOD", "CLAY")),
+      MinimumPlayers.of(3)
+    );
+
+    Construction construction = new Construction(
+      Status.of("ACTIVE"),
+      Chained.of(false),
+      Shields.of(2),
+      Effect.of("VICTORYPOINTS")
+    );
+
     card.selectedCard( "Temple", 2, "MILITARY", "RED", requirement, construction);
     assertEquals("Temple", card.getName().getValue());
     assertEquals(2, card.getEra().getValue());

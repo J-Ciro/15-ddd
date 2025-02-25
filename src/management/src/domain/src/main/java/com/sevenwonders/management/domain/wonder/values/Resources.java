@@ -9,8 +9,10 @@ public class Resources implements IValueObject {
 
   private final List<String> value;
 
+
+
   private Resources(List<String> value){
-    this.value = value;
+    this.value = List.copyOf(value);
     validate();
   }
 

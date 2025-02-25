@@ -18,6 +18,7 @@ public class CardMapper {
   }
 
   private static CardResponse.Construction mapToConstruction(Construction construction) {
+
     if (construction == null) {
       return null;
     }

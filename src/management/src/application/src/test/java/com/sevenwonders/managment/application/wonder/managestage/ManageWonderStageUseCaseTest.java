@@ -1,7 +1,7 @@
 package com.sevenwonders.managment.application.wonder.managestage;
 
 import com.sevenwonders.management.domain.wonder.events.AssignedWonder;
-import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.ports.IEventsRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import reactor.core.publisher.Flux;
@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class ManageWonderStageUseCaseTest {
 
   private final ManageWonderStageUseCase useCase;
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
   public ManageWonderStageUseCaseTest() {
-    repository = Mockito.mock(IEventsRepository.class);
+    repository = Mockito.mock(IEventsRepositoryPort.class);
     useCase = new ManageWonderStageUseCase(repository);
   }
 

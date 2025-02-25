@@ -132,6 +132,8 @@ public void calculateResources(String id, String wonderName, Integer coins, List
   Wonder wonder = new Wonder(WonderId.of(identity));
   events.forEach(wonder::apply);
 
+  wonder.markEventsAsCommitted();
+
   return wonder;
 
   }

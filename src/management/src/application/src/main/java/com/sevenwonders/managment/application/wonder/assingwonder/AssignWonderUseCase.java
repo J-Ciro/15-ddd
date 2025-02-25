@@ -3,15 +3,15 @@ package com.sevenwonders.managment.application.wonder.assingwonder;
 import com.sevenwonders.management.domain.wonder.Wonder;
 import com.sevenwonders.managment.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
-import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.ports.IEventsRepositoryPort;
 import com.sevenwonders.managment.application.shared.wonder.WonderResponse;
 import static com.sevenwonders.managment.application.shared.wonder.WonderMapper.mapToWonder;
 
 
 public class AssignWonderUseCase implements ICommandUseCase<AssignWonderRequest, Mono<WonderResponse>> {
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
-  public AssignWonderUseCase(IEventsRepository repository){
+  public AssignWonderUseCase(IEventsRepositoryPort repository){
     this.repository = repository;
   }
 

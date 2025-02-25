@@ -24,8 +24,10 @@ import com.sevenwonders.management.domain.wonder.values.Resources;
 import com.sevenwonders.shared.domain.generic.DomainActionsContainer;
 import com.sevenwonders.shared.domain.generic.DomainEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class CardHandler extends DomainActionsContainer {
 
@@ -144,30 +146,26 @@ public class CardHandler extends DomainActionsContainer {
 
   public Consumer<? extends DomainEvent> selectedCard(Card card) {
     return (SelectedCard event) -> {
-
       card.setName(Name.of(event.getName()));
       card.setEra(Era.of(event.getEra()));
       card.setType(Type.of(event.getType()));
       card.setColor(Color.of(event.getColor()));
 
       Construction construction = new Construction(
-        Status.of("SELECTED"),
-        Chained.of(false),
-        Shields.of(0),
-        Effect.of("")
+        Status.of(event.getConstructions().getStatus().getValue()),
+        Chained.of(event.getConstructions().getChained().getValue()),
+        Shields.of(event.getConstructions().getShields().getValue()),
+        Effect.of(event.getConstructions().getEffect().getValue())
       );
 
-      if (event.getConstructions() != null) {
-        construction = new Construction(
-          Status.of(event.getConstructions().getStatus().getValue()),
-          Chained.of(event.getConstructions().getChained().getValue()),
-          Shields.of(event.getConstructions().getShields().getValue()),
-          Effect.of(event.getConstructions().getEffect().getValue())
+      // El requirement debería ya estar establecido, pero por si acaso no lo está:
+      if (card.getRequirement() == null) {
+        Requirement requirement = new Requirement(
+          Amount.of(event.getRequirements().getAmount().getValue()),
+          Resources.of(event.getRequirements().getResource().getValue()),
+          MinimumPlayers.of(event.getRequirements().getMinimumPlayers().getValue())
         );
-      }
-
-      if (event.getRequirements() != null) {
-        card.setRequirement(event.getRequirements());
+        card.setRequirement(requirement);
       }
 
       card.setConstruction(construction);

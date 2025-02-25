@@ -16,6 +16,10 @@ public class Construction extends Entity<ConstructionId> {
   private Effect effect;
 
 
+  public Construction() {
+    super(new ConstructionId());
+
+  }
   public Construction(Status status, Chained chained, Shields shields, Effect effect) {
     super(new ConstructionId());
     this.status = status;

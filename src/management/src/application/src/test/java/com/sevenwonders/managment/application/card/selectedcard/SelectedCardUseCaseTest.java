@@ -10,7 +10,7 @@ import com.sevenwonders.management.domain.card.values.RequirementId;
 import com.sevenwonders.management.domain.card.values.Shields;
 import com.sevenwonders.management.domain.card.values.Status;
 import com.sevenwonders.management.domain.wonder.values.Resources;
-import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.ports.IEventsRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import reactor.test.StepVerifier;
@@ -22,10 +22,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class SelectedCardUseCaseTest {
 
   private final SelectedCardUseCase useCase;
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
   public SelectedCardUseCaseTest() {
-    repository = Mockito.mock(IEventsRepository.class);
+    repository = Mockito.mock(IEventsRepositoryPort.class);
     useCase = new SelectedCardUseCase(repository);
   }
 

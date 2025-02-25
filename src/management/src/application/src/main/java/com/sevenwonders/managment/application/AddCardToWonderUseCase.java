@@ -2,7 +2,7 @@ package com.sevenwonders.managment.application;
 
 import com.sevenwonders.management.domain.card.Card;
 import com.sevenwonders.management.domain.wonder.Wonder;
-import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.ports.IEventsRepositoryPort;
 import com.sevenwonders.managment.application.shared.wonder.WonderMapper;
 import reactor.core.publisher.Mono;
 import com.sevenwonders.managment.application.shared.wonder.WonderResponse;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddCardToWonderUseCase implements ICommandUseCase<AddCardToWonderRequest, Mono<WonderResponse>> {
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
-  public AddCardToWonderUseCase(IEventsRepository repository) {
+  public AddCardToWonderUseCase(IEventsRepositoryPort repository) {
     this.repository = repository;
   }
 

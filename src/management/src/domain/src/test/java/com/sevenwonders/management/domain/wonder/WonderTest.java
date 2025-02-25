@@ -54,10 +54,8 @@ class WonderTest {
   void assignWonderSuccess(){
     wonder.assignedWonder("Colossus of Rhodes", "DAY");
     wonder.setCards(cards);
-
     assertEquals(1, cards.size());
     assertEquals("ALTAR", cards.get(0).getName().getValue());
-
     assertEquals("Colossus of Rhodes", wonder.getName().getValue());
     assertEquals("DAY", wonder.getMode().getValue());
     assertEquals(2, wonder.getUncommittedEvents().size());

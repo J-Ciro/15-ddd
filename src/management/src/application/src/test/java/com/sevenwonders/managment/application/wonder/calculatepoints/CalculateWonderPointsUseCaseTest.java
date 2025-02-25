@@ -2,21 +2,23 @@ package com.sevenwonders.managment.application.wonder.calculatepoints;
 
 import com.sevenwonders.management.domain.wonder.events.AssignedWonder;
 import com.sevenwonders.management.domain.wonder.events.CalculatePoints;
-import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.ports.IEventsRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CalculateWonderPointsUseCaseTest {
 
   private final CalculateWonderPointsUseCase useCase;
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
   public CalculateWonderPointsUseCaseTest() {
-    repository = Mockito.mock(IEventsRepository.class);
+    repository = Mockito.mock(IEventsRepositoryPort.class);
     useCase = new CalculateWonderPointsUseCase(repository);
   }
 

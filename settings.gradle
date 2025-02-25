@@ -6,9 +6,13 @@ include 'shared:application'
 include ':management:domain'
 include ':management:application'
 
+include ':management:mongo'
+include ':management:main-service'
+
 project(':shared:domain').projectDir = file('./src/shared/src/domain')
 project(':shared:application').projectDir = file('./src/shared/src/application')
 project(':management:domain').projectDir = file('./src/management/src/domain')
 project(':management:application').projectDir = file('./src/management/src/application')
 
-
+project(':management:mongo').projectDir = file('./src/management/src/infrastructure/driven-adapters/mongo')
+project(':management:main-service').projectDir = file('./src/management/src/infrastructure/driving-adapters/main-service')

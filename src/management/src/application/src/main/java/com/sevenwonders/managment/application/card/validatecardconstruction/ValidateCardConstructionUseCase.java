@@ -5,13 +5,13 @@ import com.sevenwonders.managment.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
 import com.sevenwonders.managment.application.shared.card.CardMapper;
 import com.sevenwonders.managment.application.shared.card.CardResponse;
-import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.ports.IEventsRepositoryPort;
 
 public class ValidateCardConstructionUseCase implements ICommandUseCase<ValidateCardConstructionRequest, Mono<CardResponse>> {
 
-  private final IEventsRepository repository;
+  private final IEventsRepositoryPort repository;
 
-  public ValidateCardConstructionUseCase(IEventsRepository repository) {
+  public ValidateCardConstructionUseCase(IEventsRepositoryPort repository) {
     this.repository = repository;
   }
 

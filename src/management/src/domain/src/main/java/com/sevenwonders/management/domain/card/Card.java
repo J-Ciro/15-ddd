@@ -31,11 +31,17 @@ public class Card extends AggregateRoot<CardId> {
   private Requirement requirement;
 
 
-  //region Constructors
-  public Card( String name, Integer era, String type, String color, Construction construction, Requirement requirement) {
+//  //region Constructors
+//  public Card( String cardName, Integer era, String type, String color, Construction construction, Requirement requirement) {
+//    super(new CardId());
+//    subscribe(new CardHandler(this));
+//    apply(new SelectedCard( cardName, era, type, color, construction , requirement.getResource().getValue(), requirement.getAmount().getValue(), requirement.getMinimumPlayers().getValue()));
+//  }
+
+  public Card(String cardName, Integer era, String type, String color, Construction construction, Requirement requirement){
     super(new CardId());
     subscribe(new CardHandler(this));
-    apply(new SelectedCard( name, era, type, color, requirement, construction));
+    apply(new SelectedCard( cardName, era, type, color, construction , requirement));
   }
 
   private Card(CardId identity) {
@@ -99,8 +105,9 @@ public class Card extends AggregateRoot<CardId> {
   //endregion
 
   //region Domain Actions
-public void selectedCard( String name, Integer era, String type, String color, Requirement requirements, Construction constructions){
-  apply(new SelectedCard( name, era, type, color, requirements, constructions));
+public void selectedCard( String cardName, Integer era, String type, String color, Integer amount, List<String> resources, Integer minimumPlayers, Construction constructions){
+//  apply(new SelectedCard( cardName, era, type, color, constructions, resources, amount, minimumPlayers));
+  apply(new SelectedCard( cardName, era, type, color, construction, requirement));
 }
 
 public void discardedCard(String id, String name, Integer era, String type, String color, Requirement requirements, Construction constructions){

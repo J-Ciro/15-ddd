@@ -21,6 +21,8 @@ public class SelectedCardRequest extends Request {
     this.color = color;
     this.construction = construction;
     this.requirement = requirement;
+
+
   }
 
 

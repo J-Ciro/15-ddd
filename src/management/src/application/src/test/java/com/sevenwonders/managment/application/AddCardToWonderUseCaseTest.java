@@ -12,7 +12,7 @@ import com.sevenwonders.management.domain.card.values.Shields;
 import com.sevenwonders.management.domain.card.values.Status;
 import com.sevenwonders.management.domain.wonder.events.AssignedWonder;
 import com.sevenwonders.management.domain.wonder.values.Resources;
-import com.sevenwonders.managment.application.shared.repositories.IEventsRepository;
+import com.sevenwonders.managment.application.shared.ports.IEventsRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import reactor.core.publisher.Flux;
@@ -25,10 +25,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class AddCardToWonderUseCaseTest {
 
   private AddCardToWonderUseCase useCase;
-  private IEventsRepository repository;
+  private IEventsRepositoryPort repository;
 
   public AddCardToWonderUseCaseTest() {
-    repository = Mockito.mock(IEventsRepository.class);
+    repository = Mockito.mock(IEventsRepositoryPort.class);
     useCase = new AddCardToWonderUseCase(repository);
   }
 
@@ -39,27 +39,27 @@ class AddCardToWonderUseCaseTest {
         new AssignedWonder("Alexandria", "NIGHT")
       ));
 
-    Mockito.when(repository.findEventsByAggregatedId("card123"))
-      .thenReturn(Flux.just(
-        new SelectedCard(
-          "card123",
-          1,
-           "CIVIL",
-          "BLUE",
-          new Requirement(
-            RequirementId.of("R1"),
-            Amount.of(3),
-            Resources.of(List.of("WOOD")),
-            MinimumPlayers.of(2)
-          ),
-          new Construction(
-            Status.of("INPROGRESS"),
-            Chained.of(false),
-            Shields.of(0),
-            Effect.of("NONE")
-          )
-        )
-      ));
+//    Mockito.when(repository.findEventsByAggregatedId("card123"))
+//      .thenReturn(Flux.just(
+//        new SelectedCard(
+//          "card123",
+//          1,
+//           "CIVIL",
+//          "BLUE",
+//          new Requirement(
+//            RequirementId.of("R1"),
+//            Amount.of(3),
+//            Resources.of(List.of("WOOD")),
+//            MinimumPlayers.of(2)
+//          ),
+//          new Construction(
+//            Status.of("INPROGRESS"),
+//            Chained.of(false),
+//            Shields.of(0),
+//            Effect.of("NONE")
+//          )
+//        )
+//      ));
 
     AddCardToWonderRequest request = new AddCardToWonderRequest(
       "wonder123",
@@ -98,27 +98,27 @@ class AddCardToWonderUseCaseTest {
         new AssignedWonder("Alexandria", "NIGHT")
       ));
 
-    Mockito.when(repository.findEventsByAggregatedId(cardAggregateId))
-      .thenReturn(Flux.just(
-        new SelectedCard(
-          cardAggregateId,
-          1,
-          "CIVIL",
-          "BLUE",
-          new Requirement(
-            RequirementId.of("R1"),
-            Amount.of(5),     // necesito 5 moneda
-            Resources.of(List.of("STONE")),  // solo hay 1 de eso
-            MinimumPlayers.of(2)
-          ),
-          new Construction(
-            Status.of("INPROGRESS"),
-            Chained.of(false),
-            Shields.of(0),
-            Effect.of("NONE")
-          )
-        )
-      ));
+//    Mockito.when(repository.findEventsByAggregatedId(cardAggregateId))
+//      .thenReturn(Flux.just(
+//        new SelectedCard(
+//          cardAggregateId,
+//          1,
+//          "CIVIL",
+//          "BLUE",
+//          new Requirement(
+//            RequirementId.of("R1"),
+//            Amount.of(5),     // necesito 5 moneda
+//            Resources.of(List.of("STONE")),  // solo hay 1 de eso
+//            MinimumPlayers.of(2)
+//          ),
+//          new Construction(
+//            Status.of("INPROGRESS"),
+//            Chained.of(false),
+//            Shields.of(0),
+//            Effect.of("NONE")
+//          )
+//        )
+//      ));
 
     AddCardToWonderRequest request = new AddCardToWonderRequest(
       wonderAggregateId,
@@ -146,27 +146,27 @@ class AddCardToWonderUseCaseTest {
         new AssignedWonder("Alexandria", "NIGHT")
       ));
 
-    Mockito.when(repository.findEventsByAggregatedId("card123"))
-      .thenReturn(Flux.just(
-        new SelectedCard(
-          "card123",
-          1,
-          "CIVIL",
-          "BLUE",
-          new Requirement(
-            RequirementId.of("R1"),
-            Amount.of(3),
-            Resources.of(List.of("WOOD")),
-            MinimumPlayers.of(7)
-          ),
-          new Construction(
-            Status.of("INPROGRESS"),
-            Chained.of(false),
-            Shields.of(0),
-            Effect.of("NONE")
-          )
-        )
-      ));
+//    Mockito.when(repository.findEventsByAggregatedId("card123"))
+//      .thenReturn(Flux.just(
+//        new SelectedCard(
+//          "card123",
+//          1,
+//          "CIVIL",
+//          "BLUE",
+//          new Requirement(
+//            RequirementId.of("R1"),
+//            Amount.of(3),
+//            Resources.of(List.of("WOOD")),
+//            MinimumPlayers.of(7)
+//          ),
+//          new Construction(
+//            Status.of("INPROGRESS"),
+//            Chained.of(false),
+//            Shields.of(0),
+//            Effect.of("NONE")
+//          )
+//        )
+//      ));
 
     AddCardToWonderRequest request = new AddCardToWonderRequest(
       "wonder123",
