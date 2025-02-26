@@ -17,17 +17,11 @@ public class ValidateCardConstructionUseCase implements ICommandUseCase<Validate
 
   @Override
   public Mono<CardResponse> execute(ValidateCardConstructionRequest request) {
-    return repository.findEventsByAggregatedId(request.getCardId())
+    return repository.findEventsByAggregatedId(request.getAggregateId())
       .collectList()
-      .map(events -> Card.from(request.getCardId(), events))
-      .map(card -> {
-        card.validateConstruction(
-          request.getCardId(),
-          request.getStatus(),
-          request.getChained(),
-          request.getShields(),
-          request.getEffect()
-        );
+      .map(events -> {
+        Card card = Card.from(request.getAggregateId(), events);
+        card.validateConstruction(request.getAggregateId(), request.getStatus(), request.getChained(), request.getShields(), request.getEffect());
         card.getUncommittedEvents().forEach(repository::save);
         card.markEventsAsCommitted();
         return CardMapper.mapToCard(card);

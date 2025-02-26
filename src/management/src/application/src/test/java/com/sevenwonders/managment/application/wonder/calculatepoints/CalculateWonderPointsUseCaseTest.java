@@ -27,9 +27,9 @@ class CalculateWonderPointsUseCaseTest {
     Mockito.when(repository.findEventsByAggregatedId(Mockito.anyString()))
       .thenReturn(Flux.just(
         new AssignedWonder("Pyramid", "NIGHT"),
-        new CalculatePoints("wonder123", 5)
+        new CalculatePoints("wonder123", List.of(5))
       ));
-    CalculateWonderPointsRequest request = new CalculateWonderPointsRequest("wonder123", 10);
+    CalculateWonderPointsRequest request = new CalculateWonderPointsRequest("wonder123", "asd12", List.of(10));
     StepVerifier
       .create(useCase.execute(request))
       .assertNext(response -> {

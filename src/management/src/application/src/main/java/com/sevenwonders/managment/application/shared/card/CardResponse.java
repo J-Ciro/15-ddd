@@ -4,17 +4,17 @@ import java.util.List;
 
 public class CardResponse {
   private final String cardId;
-  private final String name;
+  private final String cardName;
   private final Integer era;
   private final String type;
   private final String color;
   private final Construction construction;
   private final Requirement requirement;
 
-  public CardResponse(String cardId, String name, Integer era, String type,
+  public CardResponse(String cardId, String cardName, Integer era, String type,
                       String color, Construction construction, Requirement requirement) {
     this.cardId = cardId;
-    this.name = name;
+    this.cardName = cardName;
     this.era = era;
     this.type = type;
     this.color = color;
@@ -24,7 +24,7 @@ public class CardResponse {
 
   // Getters
   public String getCardId() { return cardId; }
-  public String getName() { return name; }
+  public String getCardName() { return cardName; }
   public Integer getEra() { return era; }
   public String getType() { return type; }
   public String getColor() { return color; }

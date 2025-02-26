@@ -24,7 +24,7 @@ public class WonderMapper {
   private static WonderResponse.Card mapToCard(Card card) {
     return new WonderResponse.Card(
       card.getIdentity().getValue(),
-      card.getName().getValue(),
+      card.getCardName().getValue(),
       card.getEra().getValue(),
       card.getType().getValue(),
       card.getColor().getValue()

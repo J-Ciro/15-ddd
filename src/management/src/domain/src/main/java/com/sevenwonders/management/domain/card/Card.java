@@ -23,7 +23,7 @@ import java.util.List;
 public class Card extends AggregateRoot<CardId> {
 
 
-  private Name name;
+  private Name cardName;
   private Era era;
   private Type type;
   private Color color;
@@ -31,17 +31,10 @@ public class Card extends AggregateRoot<CardId> {
   private Requirement requirement;
 
 
-//  //region Constructors
-//  public Card( String cardName, Integer era, String type, String color, Construction construction, Requirement requirement) {
-//    super(new CardId());
-//    subscribe(new CardHandler(this));
-//    apply(new SelectedCard( cardName, era, type, color, construction , requirement.getResource().getValue(), requirement.getAmount().getValue(), requirement.getMinimumPlayers().getValue()));
-//  }
-
   public Card(String cardName, Integer era, String type, String color, Construction construction, Requirement requirement){
     super(new CardId());
     subscribe(new CardHandler(this));
-    apply(new SelectedCard( cardName, era, type, color, construction , requirement));
+    apply(new SelectedCard(cardName, era, type, color, construction , requirement));
   }
 
   private Card(CardId identity) {
@@ -53,12 +46,12 @@ public class Card extends AggregateRoot<CardId> {
 
   //region Getters and Setters
 
-  public Name getName() {
-    return name;
+  public Name getCardName() {
+    return cardName;
   }
 
-  public void setName(Name name) {
-    this.name = name;
+  public void setCardName(Name cardName) {
+    this.cardName = cardName;
   }
 
   public Era getEra() {
@@ -105,9 +98,8 @@ public class Card extends AggregateRoot<CardId> {
   //endregion
 
   //region Domain Actions
-public void selectedCard( String cardName, Integer era, String type, String color, Integer amount, List<String> resources, Integer minimumPlayers, Construction constructions){
-//  apply(new SelectedCard( cardName, era, type, color, constructions, resources, amount, minimumPlayers));
-  apply(new SelectedCard( cardName, era, type, color, construction, requirement));
+public void selectedCard( String cardName, Integer era, String type, String color, Construction constructions, Requirement requirements){
+  apply(new SelectedCard( cardName, era, type, color, constructions, requirements));
 }
 
 public void discardedCard(String id, String name, Integer era, String type, String color, Requirement requirements, Construction constructions){
@@ -144,6 +136,8 @@ public void checkConstruction(String id, String status, Boolean chained, Integer
 
     Card card = new Card(CardId.of(identity));
     events.forEach(card::apply);
+
+     card.markEventsAsCommitted();
 
     return card;
 

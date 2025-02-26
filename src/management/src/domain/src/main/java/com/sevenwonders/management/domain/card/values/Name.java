@@ -19,9 +19,9 @@ public class Name implements IValueObject {
   @Override
   public void validate() {
 
-    Utils.validateNotNull(this.value, "Name value");
-    Utils.validateNotBlank(this.value);
-    Utils.validateNotSpecialCharacters(this.value);
+//    Utils.validateNotNull(this.value, "Name value");
+//    Utils.validateNotBlank(this.value);
+//    Utils.validateNotSpecialCharacters(this.value);
 
 
   }

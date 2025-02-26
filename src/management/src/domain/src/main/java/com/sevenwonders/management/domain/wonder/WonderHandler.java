@@ -59,10 +59,9 @@ public class WonderHandler extends DomainActionsContainer {
 
   public Consumer<? extends DomainEvent> calculatePoints(Wonder wonder) {
     return (CalculatePoints event) -> {
-
       Conflict currentConflict = wonder.getConflict();
       List<Integer> currentMarks = currentConflict.getMarks().getValue();
-      currentMarks.add(event.getMarks());
+      currentMarks.addAll(event.getMarks());
       wonder.setConflict(new Conflict(
         Marks.of(currentMarks),
         currentConflict.getShields(),
@@ -90,20 +89,17 @@ public class WonderHandler extends DomainActionsContainer {
 
   public Consumer<? extends DomainEvent> checkedStage(Wonder wonder){
     return (CheckedStage event) -> {
+
       Stage currentStage = wonder.getStage();
       List<String> currentResources = currentStage.getResources().getValue();
       Integer currentCoins = wonder.getVault().getCoins().getValue();
       wonder.validateStage(event.getId(), event.getWonderName(), event.getStage(), currentCoins , currentResources);
-
     };
   }
 
   public Consumer<? extends DomainEvent> updateStage(Wonder wonder) {
     return (UpdatedStage event) -> {
       Stage currentStage = wonder.getStage();
-
-
-
       Stage updatedStage = new Stage(
           Name.of(event.getStage()),
           currentStage.getResources(),

@@ -24,10 +24,8 @@ import com.sevenwonders.management.domain.wonder.values.Resources;
 import com.sevenwonders.shared.domain.generic.DomainActionsContainer;
 import com.sevenwonders.shared.domain.generic.DomainEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class CardHandler extends DomainActionsContainer {
 
@@ -97,7 +95,7 @@ public class CardHandler extends DomainActionsContainer {
 
   public Consumer<? extends DomainEvent> discardedCard(Card card) {
     return (DiscardedCard event) -> {
-      card.setName(Name.of(event.getName()));
+      card.setCardName(Name.of(event.getName()));
       card.setEra(Era.of(event.getEra()));
       card.setType(Type.of(event.getType()));
       card.setColor(Color.of(event.getColor()));
@@ -146,7 +144,7 @@ public class CardHandler extends DomainActionsContainer {
 
   public Consumer<? extends DomainEvent> selectedCard(Card card) {
     return (SelectedCard event) -> {
-      card.setName(Name.of(event.getName()));
+      card.setCardName(Name.of(event.getName()));
       card.setEra(Era.of(event.getEra()));
       card.setType(Type.of(event.getType()));
       card.setColor(Color.of(event.getColor()));
@@ -158,7 +156,6 @@ public class CardHandler extends DomainActionsContainer {
         Effect.of(event.getConstructions().getEffect().getValue())
       );
 
-      // El requirement debería ya estar establecido, pero por si acaso no lo está:
       if (card.getRequirement() == null) {
         Requirement requirement = new Requirement(
           Amount.of(event.getRequirements().getAmount().getValue()),

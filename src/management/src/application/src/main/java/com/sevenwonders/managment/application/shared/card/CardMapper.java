@@ -8,7 +8,7 @@ public class CardMapper {
   public static CardResponse mapToCard(Card card) {
     return new CardResponse(
       card.getIdentity().getValue(),
-      card.getName().getValue(),
+      card.getCardName().getValue(),
       card.getEra().getValue(),
       card.getType().getValue(),
       card.getColor().getValue(),

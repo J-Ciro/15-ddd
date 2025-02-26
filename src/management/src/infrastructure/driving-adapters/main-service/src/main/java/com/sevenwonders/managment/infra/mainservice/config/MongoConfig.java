@@ -19,5 +19,4 @@ public class MongoConfig {
     return new MongoAdapter(repository);
   }
 
-
 }

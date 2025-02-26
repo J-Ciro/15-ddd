@@ -7,14 +7,14 @@ import java.util.List;
 public class CalculatePoints  extends DomainEvent {
 
   private  String id;
-  private  Integer marks;
+  private  List<Integer> marks;
 
 
   public CalculatePoints() {
     super(EventsEnum.CALCULATED_POINTS.name());
   }
 
-  public CalculatePoints(String id, Integer marks) {
+  public CalculatePoints(String id, List<Integer>  marks) {
     super(EventsEnum.CALCULATED_POINTS.name());
     this.id = id;
     this.marks = marks;
@@ -24,7 +24,7 @@ public class CalculatePoints  extends DomainEvent {
     return id;
   }
 
-  public Integer getMarks() {
+  public List<Integer>  getMarks() {
     return marks;
   }
 
@@ -32,7 +32,7 @@ public class CalculatePoints  extends DomainEvent {
     this.id = id;
   }
 
-  public void setMarks(Integer marks) {
+  public void setMarks(List<Integer>  marks) {
     this.marks = marks;
   }
 

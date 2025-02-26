@@ -16,9 +16,9 @@ public class CalculateWonderPointsUseCase implements ICommandUseCase<CalculateWo
 
   @Override
   public Mono<WonderResponse> execute(CalculateWonderPointsRequest request) {
-    return repository.findEventsByAggregatedId(request.getWonderId())
+    return repository.findEventsByAggregatedId(request.getAggregateId())
       .collectList()
-      .map(events -> Wonder.from(request.getWonderId(), events))
+      .map(events -> Wonder.from(request.getAggregateId(), events))
       .map(wonder -> {
         wonder.calculatePoints(request.getWonderId(), request.getMarks());
         wonder.getUncommittedEvents().forEach(repository::save);

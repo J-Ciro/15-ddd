@@ -4,8 +4,6 @@ dependencies {
     implementation(project(':management:mongo'))
     implementation(project(':management:application'))
     implementation(project(':shared:application'))
-    // borrar
-    implementation(project(':management:domain'))
-    implementation(project(':shared:domain'))
+
 
 }

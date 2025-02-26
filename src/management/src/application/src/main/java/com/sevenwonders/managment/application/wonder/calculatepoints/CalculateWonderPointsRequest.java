@@ -7,11 +7,11 @@ import java.util.List;
 public class CalculateWonderPointsRequest extends Request {
 
   private final String wonderId;
-  private final Integer marks;
+  private final List<Integer> marks;
 
 
-  public CalculateWonderPointsRequest(String wonderId, Integer  marks) {
-    super(wonderId);
+  public CalculateWonderPointsRequest(String aggregateId, String wonderId, List<Integer>  marks) {
+    super(aggregateId);
     this.wonderId = wonderId;
     this.marks = marks;
   }
@@ -20,7 +20,7 @@ public class CalculateWonderPointsRequest extends Request {
     return wonderId;
   }
 
-  public  Integer getMarks() {
+  public  List<Integer> getMarks() {
     return marks;
   }
 

@@ -117,7 +117,7 @@ public void updateVault(String id, String wonderName, Integer coins, List<String
   apply(new UpdateVault(id, wonderName, coins, resources));
 }
 
-public void calculatePoints(String id, Integer marks){
+public void calculatePoints(String id, List<Integer>  marks){
   apply(new CalculatePoints(id, marks));
 }
 

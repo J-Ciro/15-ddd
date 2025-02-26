@@ -4,20 +4,14 @@ import com.sevenwonders.management.domain.card.entities.Construction;
 import com.sevenwonders.management.domain.card.entities.Requirement;
 import com.sevenwonders.shared.domain.generic.DomainEvent;
 
-import java.util.List;
-
 public class SelectedCard extends DomainEvent {
 
   private  String cardName;
   private  Integer era;
   private  String type;
   private  String color;
-   private  Requirement requirements;
+  private  Requirement requirements;
   private  Construction constructions;
-//  private List<String> resources;
-//  private Integer amount;
-//  private Integer minimumPlayers;
-
 
 
   public SelectedCard() {
@@ -34,17 +28,7 @@ public class SelectedCard extends DomainEvent {
     this.requirements = requirements;
   }
 
-//  public SelectedCard(String cardName, Integer era, String type, String color, Construction constructions, List<String> resources, Integer amount, Integer minimumPlayers) {
-//    super(EventsEnum.SELECTED_CARD.name());
-//    this.cardName = cardName;
-//    this.era = era;
-//    this.type = type;
-//    this.color = color;
-//    this.constructions = constructions;
-//    this.resources = resources;
-//    this.amount = amount;
-//    this.minimumPlayers = minimumPlayers;
-//  }
+
 
   public String getCardName() {
     return cardName;
@@ -93,29 +77,4 @@ public class SelectedCard extends DomainEvent {
   public void setConstructions(Construction constructions) {
     this.constructions = constructions;
   }
-
-
-//  public List<String> getResources() {
-//    return resources;
-//  }
-//
-//  public void setResources(List<String> resources) {
-//    this.resources = resources;
-//  }
-//
-//  public Integer getAmount() {
-//    return amount;
-//  }
-//
-//  public void setAmount(Integer amount) {
-//    this.amount = amount;
-//  }
-//
-//  public Integer getMinimumPlayers() {
-//    return minimumPlayers;
-//  }
-//
-//  public void setMinimumPlayers(Integer minimumPlayers) {
-//    this.minimumPlayers = minimumPlayers;
-//  }
 }
