@@ -5,21 +5,20 @@ import com.sevenwonders.shared.domain.generic.DomainEvent;
 public class AssignedWonder extends DomainEvent {
 
 
-  private final String id;
-  private final String wonderName;
-  private final String mode;
 
+  private  String wonderName;
+  private  String mode;
 
-  public AssignedWonder( String id, String name, String mode) {
+  public AssignedWonder() {
     super(EventsEnum.ASSIGNED_WONDER.name());
-    this.id = id;
+  }
+
+  public AssignedWonder( String name, String mode) {
+    super(EventsEnum.ASSIGNED_WONDER.name());
     this.wonderName = name;
     this.mode = mode;
   }
 
-  public String getId() {
-    return id;
-  }
 
   public String getWonderName() {
     return wonderName;
@@ -28,4 +27,16 @@ public class AssignedWonder extends DomainEvent {
   public String getMode() {
     return mode;
   }
+
+  public void setWonderName(String wonderName) {
+    this.wonderName = wonderName;
+  }
+
+  public void setMode(String mode) {
+    this.mode = mode;
+  }
+
+
+
+
 }

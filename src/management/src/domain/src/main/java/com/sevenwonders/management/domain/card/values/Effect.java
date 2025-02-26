@@ -20,8 +20,7 @@ public class Effect implements IValueObject {
   public void validate() {
 
     Utils.validateNotNull(this.value, "Effect value");
-    Utils.validateNotBlank(this.value);
-    Utils.validateNotSpecialCharacters(this.value);
+
 
   }
 

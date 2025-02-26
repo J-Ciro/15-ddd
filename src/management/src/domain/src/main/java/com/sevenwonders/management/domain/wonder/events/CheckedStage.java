@@ -15,7 +15,9 @@ public class CheckedStage extends DomainEvent {
     this.id = id;
     this.wonderName = wonderName;
     this.stage = stage;
+
   }
+
 
   public String getId() {
     return id;
@@ -28,6 +30,4 @@ public class CheckedStage extends DomainEvent {
   public String getStage() {
     return stage;
   }
-
-
 }

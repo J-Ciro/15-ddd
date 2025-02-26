@@ -11,7 +11,11 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/management" />
             <option value="$PROJECT_DIR$/shared" />
+            <option value="$PROJECT_DIR$/src/management/src/application" />
             <option value="$PROJECT_DIR$/src/management/src/domain" />
+            <option value="$PROJECT_DIR$/src/management/src/infrastructure/driven-adapters/mongo" />
+            <option value="$PROJECT_DIR$/src/management/src/infrastructure/driving-adapters/main-service" />
+            <option value="$PROJECT_DIR$/src/shared/src/application" />
             <option value="$PROJECT_DIR$/src/shared/src/domain" />
           </set>
         </option>

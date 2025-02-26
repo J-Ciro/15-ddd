@@ -24,6 +24,7 @@ import com.sevenwonders.management.domain.wonder.values.Resources;
 import com.sevenwonders.shared.domain.generic.DomainActionsContainer;
 import com.sevenwonders.shared.domain.generic.DomainEvent;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class CardHandler extends DomainActionsContainer {
@@ -44,9 +45,6 @@ public class CardHandler extends DomainActionsContainer {
   public Consumer<? extends DomainEvent> checkedConstruction(Card card) {
     return (CheckedConstruction event) -> {
       Construction construction = card.getConstruction();
-      if (construction == null) {
-        throw new IllegalStateException("Construction not initialized");
-      }
 
       String validatedStatus = construction.checkStatus(event.getStatus());
       construction.setStatus(Status.of(validatedStatus));
@@ -64,11 +62,25 @@ public class CardHandler extends DomainActionsContainer {
   }
 
   public Consumer<? extends DomainEvent> checkedRequirement(Card card) {
+
     return (CheckedRequirement event) -> {
       Requirement currentRequirement = card.getRequirement();
 
-      if (currentRequirement == null) {
-        throw new IllegalStateException("Requirement not initialized");
+      if (event.getPrice() < currentRequirement.getAmount().getValue()) {
+        throw new IllegalStateException("Insufficient coins to add card. Required: " +
+          currentRequirement.getAmount().getValue() + ", Available: " + event.getPrice());
+      }
+
+      List<String> requiredResources = currentRequirement.getResource().getValue();
+      List<String> availableResources = event.getResources();
+      if (!availableResources.containsAll(requiredResources)) {
+        throw new IllegalStateException("Insufficient resources to add card. Required: " +
+          requiredResources + ", Available: " + availableResources);
+      }
+
+      if (event.getMinimumPlayers() < currentRequirement.getMinimumPlayers().getValue()) {
+        throw new IllegalStateException("Not enough players to add card. Required: " +
+          currentRequirement.getMinimumPlayers().getValue() + ", Available: " + event.getMinimumPlayers());
       }
 
       Requirement updatedRequirement = new Requirement(
@@ -81,10 +93,9 @@ public class CardHandler extends DomainActionsContainer {
     };
   }
 
-
   public Consumer<? extends DomainEvent> discardedCard(Card card) {
     return (DiscardedCard event) -> {
-      card.setName(Name.of(event.getName()));
+      card.setCardName(Name.of(event.getName()));
       card.setEra(Era.of(event.getEra()));
       card.setType(Type.of(event.getType()));
       card.setColor(Color.of(event.getColor()));
@@ -96,6 +107,8 @@ public class CardHandler extends DomainActionsContainer {
           MinimumPlayers.of(0) // Reset minimum players when discarded
         );
         card.setRequirement(discardedRequirement);
+      }else{
+        card.setRequirement(null);
       }
 
       if (event.getConstructions() != null) {
@@ -106,18 +119,15 @@ public class CardHandler extends DomainActionsContainer {
           Effect.of("DISCARDED")
         );
         card.setConstruction(discardedConstruction);
+      }else{
+        card.setConstruction(null);
       }
     };
   }
 
-
   public Consumer<? extends DomainEvent> discardConstruction(Card card) {
     return (DiscardedConstruction event) -> {
       Construction currentConstruction = card.getConstruction();
-
-      if (currentConstruction == null) {
-        throw new IllegalStateException("Construction not initialized");
-      }
 
       String updatedStatus = currentConstruction.updateStatus("discarded");
 
@@ -132,48 +142,35 @@ public class CardHandler extends DomainActionsContainer {
     };
   }
 
-
-
   public Consumer<? extends DomainEvent> selectedCard(Card card) {
     return (SelectedCard event) -> {
-
-      card.setName(Name.of(event.getName()));
+      card.setCardName(Name.of(event.getName()));
       card.setEra(Era.of(event.getEra()));
       card.setType(Type.of(event.getType()));
       card.setColor(Color.of(event.getColor()));
 
       Construction construction = new Construction(
-        Status.of("SELECTED"),
-        Chained.of(false),
-        Shields.of(0),
-        Effect.of("")
+        Status.of(event.getConstructions().getStatus().getValue()),
+        Chained.of(event.getConstructions().getChained().getValue()),
+        Shields.of(event.getConstructions().getShields().getValue()),
+        Effect.of(event.getConstructions().getEffect().getValue())
       );
 
-      if (event.getConstructions() != null) {
-        construction = new Construction(
-          Status.of(event.getConstructions().getStatus().getValue()),
-          Chained.of(event.getConstructions().getChained().getValue()),
-          Shields.of(event.getConstructions().getShields().getValue()),
-          Effect.of(event.getConstructions().getEffect().getValue())
+      if (card.getRequirement() == null) {
+        Requirement requirement = new Requirement(
+          Amount.of(event.getRequirements().getAmount().getValue()),
+          Resources.of(event.getRequirements().getResource().getValue()),
+          MinimumPlayers.of(event.getRequirements().getMinimumPlayers().getValue())
         );
-      }
-
-      if (event.getRequirements() != null) {
-        card.setRequirement(event.getRequirements());
+        card.setRequirement(requirement);
       }
 
       card.setConstruction(construction);
     };
   }
 
-
   public Consumer<? extends DomainEvent> updatedRequirement(Card card) {
     return (UpdatedRequirement event) -> {
-      Requirement currentRequirement = card.getRequirement();
-
-      if (currentRequirement == null) {
-        throw new IllegalStateException("Requirement not initialized");
-      }
 
       Requirement updatedRequirement = new Requirement(
         Amount.of(event.getPrice()),
@@ -185,14 +182,9 @@ public class CardHandler extends DomainActionsContainer {
     };
   }
 
-
   public Consumer<? extends DomainEvent> validateConstruction(Card card) {
     return (ValidatedConstruction event) -> {
       Construction currentConstruction = card.getConstruction();
-
-      if (currentConstruction == null) {
-        throw new IllegalStateException("Construction not initialized");
-      }
 
       String validatedStatus = currentConstruction.checkStatus(event.getStatus());
       String validatedEffect = currentConstruction.checkEffect(event.getEffect());
@@ -210,11 +202,6 @@ public class CardHandler extends DomainActionsContainer {
 
   public Consumer<? extends DomainEvent> validateRequirement(Card card) {
     return (ValidatedRequirement event) -> {
-      Requirement currentRequirement = card.getRequirement();
-
-      if (currentRequirement == null) {
-        throw new IllegalStateException("Requirement not initialized");
-      }
 
       Requirement validatedRequirement = new Requirement(
         Amount.of(event.getPrice()),

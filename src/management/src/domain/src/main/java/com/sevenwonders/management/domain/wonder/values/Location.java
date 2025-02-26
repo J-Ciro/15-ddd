@@ -20,8 +20,7 @@ public class Location implements IValueObject {
   public void validate() {
 
    Utils.validateNotNull(this.value, "Location value");
-   Utils.validateNotBlank(this.value);
-   Utils.validateNotSpecialCharacters(this.value);
+//   Utils.validateNotSpecialCharacters(this.value);
    Utils.validateInRange(this.value.length(), 4, 5, "Location value");
 
   }

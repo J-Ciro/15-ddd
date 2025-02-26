@@ -4,11 +4,11 @@ import com.sevenwonders.shared.domain.generic.DomainEvent;
 
 public class CheckedConstruction extends DomainEvent {
 
-  private final String id;
-  private final String status;
-  private final Boolean chained;
-  private final Integer shields;
-  private final String effect;
+  private  String id;
+  private  String status;
+  private  Boolean chained;
+  private  Integer shields;
+  private  String effect;
 
 
   public CheckedConstruction(String id, String status, Boolean chained, Integer shields, String effect) {
@@ -19,7 +19,6 @@ public class CheckedConstruction extends DomainEvent {
     this.shields = shields;
     this.effect = effect;
   }
-
 
   public String getId() {
     return id;
