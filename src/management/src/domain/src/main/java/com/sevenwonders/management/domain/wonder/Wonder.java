@@ -21,18 +21,17 @@ import java.util.List;
 
 public class Wonder extends AggregateRoot<WonderId> {
 
-private Name name;
+private Name wonderName;
 private Mode mode;
-private List<Card> cards ;
 private Conflict conflict;
 private Vault vault;
 private Stage stage;
 
 // region Constructors
-public Wonder(String name, String mode){
+public Wonder(String wonderName, String mode){
   super(new WonderId());
   subscribe(new WonderHandler(this));
-  apply(new AssignedWonder(name, mode));
+  apply(new AssignedWonder(wonderName, mode));
 
 }
 
@@ -45,12 +44,12 @@ private Wonder(WonderId identity){
 
 //region Getters and Setters
 
-  public Name getName() {
-    return name;
+  public Name getWonderName() {
+    return wonderName;
   }
 
-  public void setName(Name name) {
-    this.name = name;
+  public void setWonderName(Name wonderName) {
+    this.wonderName = wonderName;
   }
 
   public Mode getMode() {
@@ -59,14 +58,6 @@ private Wonder(WonderId identity){
 
   public void setMode(Mode mode) {
     this.mode = mode;
-  }
-
-  public List<Card> getCards() {
-    return cards;
-  }
-
-  public void setCards(List<Card> cards) {
-    this.cards = cards;
   }
 
   public Conflict getConflict() {
@@ -117,7 +108,7 @@ public void updateVault(String id, String wonderName, Integer coins, List<String
   apply(new UpdateVault(id, wonderName, coins, resources));
 }
 
-public void calculatePoints(String id, List<Integer>  marks){
+public void calculatePoints(String id, Integer  marks){
   apply(new CalculatePoints(id, marks));
 }
 

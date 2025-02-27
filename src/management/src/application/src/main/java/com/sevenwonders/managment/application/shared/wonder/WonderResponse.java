@@ -9,19 +9,16 @@ public class WonderResponse {
   private final Stage stage;
   private final Vault vault;
   private final Conflict conflict;
-  private final List<Card> cards;
 
   public WonderResponse(String wonderId, String wonderName, Stage stage ,
                         String mode
-                        , Vault vault, Conflict conflict,
-                        List<Card> cards) {
+                        , Vault vault, Conflict conflict) {
     this.wonderId = wonderId;
     this.wonderName = wonderName;
     this.mode = mode;
     this.stage = stage;
     this.vault = vault;
     this.conflict = conflict;
-    this.cards = cards;
   }
 
   // Getters
@@ -31,7 +28,6 @@ public class WonderResponse {
   public Stage getStage() { return stage; }
   public Vault getVault() { return vault; }
   public Conflict getConflict() { return conflict; }
-  public List<Card> getCards() { return cards; }
 
   public static class Card {
     private final String id;
@@ -89,18 +85,18 @@ public class WonderResponse {
   }
 
   public static class Conflict {
-    private final List<Integer> marks;
+    private final Integer marks;
     private final Integer shields;
     private final String location;
 
-    public Conflict(List<Integer> marks, Integer shields, String location) {
+    public Conflict(Integer marks, Integer shields, String location) {
       this.marks = marks;
       this.shields = shields;
       this.location = location;
     }
 
 
-    public List<Integer> getMarks() { return marks; }
+    public Integer getMarks() { return marks; }
     public Integer getShields() { return shields; }
     public String getLocation() { return location; }
   }

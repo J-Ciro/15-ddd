@@ -1,7 +1,5 @@
 package com.sevenwonders.management.domain.wonder;
 
-
-import com.sevenwonders.management.domain.card.Card;
 import com.sevenwonders.management.domain.card.values.Name;
 import com.sevenwonders.management.domain.card.values.Shields;
 import com.sevenwonders.management.domain.card.values.Status;
@@ -24,8 +22,6 @@ import com.sevenwonders.shared.domain.generic.DomainActionsContainer;
 import com.sevenwonders.shared.domain.generic.DomainEvent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -48,10 +44,9 @@ public class WonderHandler extends DomainActionsContainer {
       if (!event.getMode().equals("DAY") && !event.getMode().equals("NIGHT")) {
         throw new IllegalArgumentException("Invalid game mode");
       }
-      wonder.setName(Name.of(event.getWonderName()));
+      wonder.setWonderName(Name.of(event.getWonderName()));
       wonder.setMode(Mode.of(event.getMode()));
-      wonder.setCards(new ArrayList<>());
-      wonder.setConflict(new Conflict(Marks.of(new ArrayList<>()), Shields.of(0), Location.of("")));
+      wonder.setConflict(new Conflict(Marks.of(2), Shields.of(0), Location.of("")));
       wonder.setVault(new Vault(Coins.of(3), Resources.of(List.of("WOOD", "IRON"))));
       wonder.setStage(new Stage(Name.of("ERA 1"), Resources.of(List.of("CLAY", "CLAY")), Status.of("STARTED")));
     };
@@ -60,8 +55,8 @@ public class WonderHandler extends DomainActionsContainer {
   public Consumer<? extends DomainEvent> calculatePoints(Wonder wonder) {
     return (CalculatePoints event) -> {
       Conflict currentConflict = wonder.getConflict();
-      List<Integer> currentMarks = currentConflict.getMarks().getValue();
-      currentMarks.addAll(event.getMarks());
+      Integer currentMarks = currentConflict.getMarks().getValue();
+      currentMarks += event.getMarks();
       wonder.setConflict(new Conflict(
         Marks.of(currentMarks),
         currentConflict.getShields(),
@@ -74,7 +69,6 @@ public class WonderHandler extends DomainActionsContainer {
     return (CalculateResources event) -> {
       Resources currentResources = wonder.getVault().getResources();
       Coins currentCoins = wonder.getVault().getCoins();
-      List<String> calculatedResources = new ArrayList<>(event.getResources());
       wonder.setVault(
         new Vault(
           currentCoins,
@@ -116,7 +110,7 @@ public class WonderHandler extends DomainActionsContainer {
     return (UpdateVault event) -> {
       Vault currentVault = wonder.getVault();
       Coins currentCoins = currentVault.getCoins();
-      Resources currentResources = currentVault.getResources();
+
 
       List<String> updatedResources = new ArrayList<>(event.getResources());
 

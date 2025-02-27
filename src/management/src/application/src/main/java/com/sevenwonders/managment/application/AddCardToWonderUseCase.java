@@ -44,7 +44,7 @@ public class AddCardToWonderUseCase implements ICommandUseCase<AddCardToWonderRe
 
             wonder.updateVault(
               card.getIdentity().getValue(),
-              wonder.getName().getValue(),
+              wonder.getWonderName().getValue(),
               calculateRemainingCoins(wonder, card),
               calculateRemainingResources(wonder, card)
             );

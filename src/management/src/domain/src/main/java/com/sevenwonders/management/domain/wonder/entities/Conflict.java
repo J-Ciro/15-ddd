@@ -52,8 +52,8 @@ public class Conflict extends Entity<ConflictId> {
       markValue = 0;
     }
 
-    List<Integer> updatedMarks = new ArrayList<>(this.marks.getValue());
-    updatedMarks.add(markValue);
+    int updatedMarks = this.marks.getValue() + markValue;
+    updatedMarks = Math.min(updatedMarks, 6);
 
     this.marks = Marks.of(updatedMarks);
 

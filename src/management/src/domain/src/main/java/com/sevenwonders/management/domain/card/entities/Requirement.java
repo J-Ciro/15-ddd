@@ -5,7 +5,6 @@ import com.sevenwonders.management.domain.card.values.MinimumPlayers;
 import com.sevenwonders.management.domain.card.values.RequirementId;
 import com.sevenwonders.management.domain.wonder.values.Resources;
 import com.sevenwonders.shared.domain.generic.Entity;
-
 import java.util.HashSet;
 import java.util.List;
 
@@ -18,6 +17,7 @@ public class Requirement extends Entity<RequirementId> {
   public Requirement() {
     super(new RequirementId());
   }
+
 
   public Requirement(Amount amount, Resources resource, MinimumPlayers minimumPlayers) {
     super(new RequirementId());

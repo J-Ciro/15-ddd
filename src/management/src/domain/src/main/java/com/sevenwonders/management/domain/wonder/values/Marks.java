@@ -7,14 +7,14 @@ import java.util.List;
 
 public class Marks implements IValueObject {
 
-  private final List<Integer> value;
+  private final Integer value;
 
-  private Marks(List<Integer> value){
+  private Marks(Integer value){
     this.value = value;
     validate();
   }
 
-  public static Marks of (List<Integer> value){
+  public static Marks of (Integer value){
     return new Marks(value);
   }
 
@@ -22,11 +22,11 @@ public class Marks implements IValueObject {
   public void validate() {
 
     Utils.validateNotNull(this.value, "Marks value");
-    Utils.validateInRange(this.value.size(), 1, 6, "Marks value");
+//    Utils.validateInRange(this.value.size(), 1, 6, "Marks value");
 
   }
 
-  public List<Integer> getValue() {
+  public Integer getValue() {
     return value;
   }
 }

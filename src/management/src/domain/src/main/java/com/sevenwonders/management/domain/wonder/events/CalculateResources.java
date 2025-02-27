@@ -7,10 +7,15 @@ import java.util.List;
 public class CalculateResources extends DomainEvent {
 
 
-  private final String id;
-  private final String wonderName;
-  private final Integer coins;
-  private final List<String> resources;
+  private  String id;
+  private  String wonderName;
+  private  Integer coins;
+  private  List<String> resources;
+
+
+  public CalculateResources() {
+    super(EventsEnum.CALCULATED_RESOURCES.name());
+  }
 
   public CalculateResources(String id, String wonderName, Integer coins, List<String> resources) {
     super(EventsEnum.CALCULATED_RESOURCES.name());
@@ -24,15 +29,31 @@ public class CalculateResources extends DomainEvent {
     return id;
   }
 
+  public void setId(String id) {
+    this.id = id;
+  }
+
   public String getWonderName() {
     return wonderName;
+  }
+
+  public void setWonderName(String wonderName) {
+    this.wonderName = wonderName;
   }
 
   public Integer getCoins() {
     return coins;
   }
 
+  public void setCoins(Integer coins) {
+    this.coins = coins;
+  }
+
   public List<String> getResources() {
     return resources;
+  }
+
+  public void setResources(List<String> resources) {
+    this.resources = resources;
   }
 }

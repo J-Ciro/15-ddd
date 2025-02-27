@@ -4,9 +4,13 @@ import com.sevenwonders.shared.domain.generic.DomainEvent;
 
 public class UpdatedStage  extends DomainEvent {
 
-  private final String id;
-  private final String wonderName;
-  private final String stage;
+  private  String id;
+  private  String wonderName;
+  private  String stage;
+
+  public UpdatedStage() {
+    super(EventsEnum.UPDATED_STAGE.name());
+  }
 
   public UpdatedStage(String id, String stage, String wonderName) {
     super(EventsEnum.CHECKED_STAGE.name());
@@ -19,13 +23,23 @@ public class UpdatedStage  extends DomainEvent {
     return id;
   }
 
+  public void setId(String id) {
+    this.id = id;
+  }
+
   public String getWonderName() {
     return wonderName;
+  }
+
+  public void setWonderName(String wonderName) {
+    this.wonderName = wonderName;
   }
 
   public String getStage() {
     return stage;
   }
 
-
+  public void setStage(String stage) {
+    this.stage = stage;
+  }
 }

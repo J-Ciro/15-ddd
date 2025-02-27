@@ -1,17 +1,6 @@
 package com.sevenwonders.managment.application;
 
-import com.sevenwonders.management.domain.card.entities.Construction;
-import com.sevenwonders.management.domain.card.entities.Requirement;
-import com.sevenwonders.management.domain.card.events.SelectedCard;
-import com.sevenwonders.management.domain.card.values.Amount;
-import com.sevenwonders.management.domain.card.values.Chained;
-import com.sevenwonders.management.domain.card.values.Effect;
-import com.sevenwonders.management.domain.card.values.MinimumPlayers;
-import com.sevenwonders.management.domain.card.values.RequirementId;
-import com.sevenwonders.management.domain.card.values.Shields;
-import com.sevenwonders.management.domain.card.values.Status;
 import com.sevenwonders.management.domain.wonder.events.AssignedWonder;
-import com.sevenwonders.management.domain.wonder.values.Resources;
 import com.sevenwonders.managment.application.shared.ports.IEventsRepositoryPort;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

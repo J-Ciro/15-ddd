@@ -35,7 +35,7 @@ public class CardHandler extends DomainActionsContainer {
     add(checkedRequirement(card));
     add(discardConstruction(card));
     add(discardedCard(card));
-    add(updatedRequirement(card));
+//    add(updatedRequirement(card));
     add(validateConstruction(card));
     add(validateRequirement(card));
 
@@ -169,18 +169,18 @@ public class CardHandler extends DomainActionsContainer {
     };
   }
 
-  public Consumer<? extends DomainEvent> updatedRequirement(Card card) {
-    return (UpdatedRequirement event) -> {
-
-      Requirement updatedRequirement = new Requirement(
-        Amount.of(event.getPrice()),
-        Resources.of(event.getResources()),
-        MinimumPlayers.of(event.getMinimumPlayers())
-      );
-
-      card.setRequirement(updatedRequirement);
-    };
-  }
+//  public Consumer<? extends DomainEvent> updatedRequirement(Card card) {
+//    return (UpdatedRequirement event) -> {
+//
+//      Requirement updatedRequirement = new Requirement(
+//        Amount.of(event.get),
+//        Resources.of(event.getResources()),
+//        MinimumPlayers.of(event.getMinimumPlayers())
+//      );
+//
+//      card.setRequirement(updatedRequirement);
+//    };
+//  }
 
   public Consumer<? extends DomainEvent> validateConstruction(Card card) {
     return (ValidatedConstruction event) -> {

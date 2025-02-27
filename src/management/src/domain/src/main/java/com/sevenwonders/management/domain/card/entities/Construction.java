@@ -18,8 +18,8 @@ public class Construction extends Entity<ConstructionId> {
 
   public Construction() {
     super(new ConstructionId());
-
   }
+
   public Construction(Status status, Chained chained, Shields shields, Effect effect) {
     super(new ConstructionId());
     this.status = status;

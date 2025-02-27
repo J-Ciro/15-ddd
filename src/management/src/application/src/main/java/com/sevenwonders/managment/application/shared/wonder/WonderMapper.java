@@ -10,14 +10,11 @@ public class WonderMapper {
   public static WonderResponse mapToWonder(Wonder wonder) {
     return new WonderResponse(
       wonder.getIdentity().getValue(),
-      wonder.getName().getValue(),
+      wonder.getWonderName().getValue(),
       mapToStage(wonder.getStage()),
       wonder.getMode().getValue(),
       mapToVault(wonder.getVault()),
-      mapToConflict(wonder.getConflict()),
-      wonder.getCards().stream()
-        .map(WonderMapper::mapToCard)
-        .toList()
+      mapToConflict(wonder.getConflict())
     );
   }
 

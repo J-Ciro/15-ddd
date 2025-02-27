@@ -16,6 +16,15 @@ public class CalculateWonderPointsUseCase implements ICommandUseCase<CalculateWo
 
   @Override
   public Mono<WonderResponse> execute(CalculateWonderPointsRequest request) {
+
+    if (request.getWonderId() == null || request.getWonderId().trim().isEmpty()) {
+      return Mono.error(new IllegalArgumentException("WonderId cannot be null or empty"));
+    }
+
+    if (request.getMarks() == null) {
+      return Mono.error(new IllegalArgumentException("Marks cannot be null"));
+    }
+
     return repository.findEventsByAggregatedId(request.getAggregateId())
       .collectList()
       .map(events -> Wonder.from(request.getAggregateId(), events))
@@ -26,5 +35,4 @@ public class CalculateWonderPointsUseCase implements ICommandUseCase<CalculateWo
         return WonderMapper.mapToWonder(wonder);
       });
   }
-
 }

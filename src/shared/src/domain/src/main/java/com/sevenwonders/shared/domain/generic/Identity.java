@@ -4,13 +4,13 @@ import java.util.UUID;
 
 public abstract class Identity {
 
-  private final String value;
+  private final  String value;
 
   protected Identity(){
     this.value = UUID.randomUUID().toString();
   }
 
-  protected Identity(final String value){
+  protected Identity( String value){
     this.value = value;
   }
 

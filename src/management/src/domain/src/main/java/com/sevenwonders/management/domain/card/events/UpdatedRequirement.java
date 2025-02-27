@@ -6,10 +6,14 @@ import java.util.List;
 
 public class UpdatedRequirement extends DomainEvent {
 
-  private final String id;
-  private final Integer price;
-  private final List<String> resources;
-  private final Integer minimumPlayers;
+  private  String id;
+  private  Integer price;
+  private  List<String> resources;
+  private  Integer minimumPlayers;
+
+  public UpdatedRequirement() {
+    super(EventsEnum.UPDATED_REQUIREMENT.name());
+  }
 
 
   public UpdatedRequirement(String id, Integer price, List<String> resources, Integer minimumPlayers) {
@@ -21,19 +25,5 @@ public class UpdatedRequirement extends DomainEvent {
   }
 
 
-  public String getId() {
-    return id;
-  }
 
-  public Integer getPrice() {
-    return price;
-  }
-
-  public List<String> getResources() {
-    return resources;
-  }
-
-  public Integer getMinimumPlayers() {
-    return minimumPlayers;
-  }
 }
