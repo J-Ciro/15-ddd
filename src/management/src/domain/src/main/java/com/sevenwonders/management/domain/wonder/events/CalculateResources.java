@@ -13,10 +13,6 @@ public class CalculateResources extends DomainEvent {
   private  List<String> resources;
 
 
-  public CalculateResources() {
-    super(EventsEnum.CALCULATED_RESOURCES.name());
-  }
-
   public CalculateResources(String id, String wonderName, Integer coins, List<String> resources) {
     super(EventsEnum.CALCULATED_RESOURCES.name());
     this.id = id;

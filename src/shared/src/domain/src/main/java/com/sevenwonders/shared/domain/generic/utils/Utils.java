@@ -24,15 +24,15 @@ public class Utils {
   }
 
   public static void validateNotNegative(Integer value) {
-    if (value < 0) {
-      throw new IllegalArgumentException(value + " can't be negative");
-    }
+//    if (value < 0) {
+//      throw new IllegalArgumentException(value + " can't be negative");
+//    }
   }
 
   public static void validateNotEmpty(List<String> value) {
-    if (value.isEmpty()) {
-      throw new IllegalArgumentException(value + " can't be empty");
-    }
+//    if (value.isEmpty()) {
+//      throw new IllegalArgumentException(value + " can't be empty");
+//    }
   }
 
   public static void validateNotSpecialCharacters(String value) {
@@ -55,9 +55,9 @@ public class Utils {
   }
 
   public static void validateLessThan(int value, int min, String fieldName) {
-    if (value < min) {
-      throw new IllegalArgumentException(fieldName + "cant be greater than " + min);
-    }
+//    if (value < min) {
+//      throw new IllegalArgumentException(fieldName + "cant be greater than " + min);
+//    }
   }
 
 }

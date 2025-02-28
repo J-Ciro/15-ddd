@@ -3,22 +3,15 @@ package com.sevenwonders.managment.application.wonder.calculatepoints;
 import com.sevenwonders.managment.application.Request;
 
 public class CalculateWonderPointsRequest extends Request {
-  private String wonderId;
-  private Integer marks;
+  private  Integer marks;
 
-
-  public CalculateWonderPointsRequest(String aggregateId, String wonderId, Integer marks) {
+  public CalculateWonderPointsRequest(String aggregateId) {
     super(aggregateId);
-    this.wonderId = wonderId;
+  }
+
+  public CalculateWonderPointsRequest(String aggregateId, Integer marks) {
+    super(aggregateId);
     this.marks = marks;
-  }
-
-  public String getWonderId() {
-    return wonderId;
-  }
-
-  public void setWonderId(String wonderId) {
-    this.wonderId = wonderId;
   }
 
   public Integer getMarks() {

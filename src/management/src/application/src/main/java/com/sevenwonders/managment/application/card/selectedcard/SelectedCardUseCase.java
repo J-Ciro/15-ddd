@@ -6,6 +6,7 @@ import com.sevenwonders.management.domain.card.values.Amount;
 import com.sevenwonders.management.domain.card.values.Chained;
 import com.sevenwonders.management.domain.card.values.Effect;
 import com.sevenwonders.management.domain.card.values.MinimumPlayers;
+import com.sevenwonders.management.domain.card.values.RequirementId;
 import com.sevenwonders.management.domain.card.values.Shields;
 import com.sevenwonders.management.domain.card.values.Status;
 import com.sevenwonders.management.domain.wonder.values.Resources;
@@ -45,6 +46,7 @@ public class SelectedCardUseCase implements ICommandUseCase<SelectedCardRequest,
           Effect.of(request.getConstruction().effect())
         ),
         new Requirement(
+          RequirementId.of(request.getRequirement().toString()),
           Amount.of(request.getRequirement().amount()),
           Resources.of(request.getRequirement().resources()),
           MinimumPlayers.of(request.getRequirement().minimumPlayers())

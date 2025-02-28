@@ -9,6 +9,7 @@ import com.sevenwonders.management.domain.wonder.entities.Vault;
 import com.sevenwonders.management.domain.wonder.events.AssignedWonder;
 import com.sevenwonders.management.domain.wonder.events.CalculatePoints;
 import com.sevenwonders.management.domain.wonder.events.CalculateResources;
+import com.sevenwonders.management.domain.wonder.events.CardAddedToWonder;
 import com.sevenwonders.management.domain.wonder.events.CheckedStage;
 import com.sevenwonders.management.domain.wonder.events.UpdateVault;
 import com.sevenwonders.management.domain.wonder.events.UpdatedStage;
@@ -35,6 +36,7 @@ public class WonderHandler extends DomainActionsContainer {
     add(updateStage(wonder));
     add(updateVault(wonder));
     add(validateStage(wonder));
+    add(cardAddedToWonder(wonder));
   }
 
 
@@ -94,13 +96,39 @@ public class WonderHandler extends DomainActionsContainer {
   public Consumer<? extends DomainEvent> updateStage(Wonder wonder) {
     return (UpdatedStage event) -> {
       Stage currentStage = wonder.getStage();
-      Stage updatedStage = new Stage(
-          Name.of(event.getStage()),
-          currentStage.getResources(),
-          Status.of("FINISH")
-        );
-        wonder.setStage(updatedStage);
 
+
+      if (!currentStage.getStatus().getValue().equals("VALIDATED")) {
+        throw new IllegalStateException("Cannot update stage: current stage not validated");
+      }
+
+      String nextEra;
+      if (currentStage.getName().getValue().equals("ERA 1")) {
+        nextEra = "ERA 2";
+      } else if (currentStage.getName().getValue().equals("ERA 2")) {
+        nextEra = "ERA 3";
+      } else if (currentStage.getName().getValue().equals("ERA 3")) {
+        nextEra = "COMPLETE";
+      } else {
+        nextEra = currentStage.getName().getValue();
+      }
+
+      List<String> nextEraResources;
+      if (nextEra.equals("ERA 2")) {
+        nextEraResources = List.of("CLAY", "STONE", "STONE");
+      } else if (nextEra.equals("ERA 3")) {
+        nextEraResources = List.of("CLAY", "STONE", "GLASS", "PAPYRUS");
+      } else {
+        nextEraResources = new ArrayList<>();
+      }
+
+      Stage updatedStage = new Stage(
+        Name.of(nextEra),
+        Resources.of(nextEraResources),
+        Status.of("STARTED")
+      );
+
+      wonder.setStage(updatedStage);
     };
   }
 
@@ -129,14 +157,15 @@ public Consumer<? extends DomainEvent> validateStage(Wonder wonder){
     Stage currentStage = wonder.getStage();
     Vault currentVault = wonder.getVault();
 
-    if (!currentStage.getName().getValue().equals(event.getStage())) {
-      throw new IllegalStateException("Stage mismatch: Current stage does not match validated stage");
-    }
+//    if (!currentStage.getName().getValue().equals("ERA 1")) {
+//      throw new IllegalStateException("Stage mismatch: Current stage does not match validated stage: " + event.getStage() + " vs " + currentStage.getName().getValue());
+//
+//    }
 
     List<String> requiredResources = event.getResources();
     List<String> availableResources = currentVault.getResources().getValue();
 
-    if (currentStage.getStatus().getValue().equals("BUILD")) {
+    if (currentStage.getStatus().getValue().equals("STARTED")) {
 
     wonder.setStage(new Stage(
       currentStage.getName(),
@@ -155,6 +184,16 @@ public Consumer<? extends DomainEvent> validateStage(Wonder wonder){
 
   };
 
+  }
 
+  public Consumer<? extends DomainEvent> cardAddedToWonder(Wonder wonder) {
+    return (CardAddedToWonder event) -> {
+      List<String> currentCardList = wonder.getCardList();
+      if (currentCardList == null) {
+        currentCardList = new ArrayList<String>(List.of());
+      }
+      currentCardList.add(event.getCardId());
+      wonder.setCardList(currentCardList);
+    };
   }
 }

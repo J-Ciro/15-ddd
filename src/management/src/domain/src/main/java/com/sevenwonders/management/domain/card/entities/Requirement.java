@@ -14,10 +14,6 @@ public class Requirement extends Entity<RequirementId> {
   private Resources resource;
   private MinimumPlayers minimumPlayers;
 
-  public Requirement() {
-    super(new RequirementId());
-  }
-
 
   public Requirement(Amount amount, Resources resource, MinimumPlayers minimumPlayers) {
     super(new RequirementId());

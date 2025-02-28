@@ -22,14 +22,12 @@ import java.util.List;
 
 public class Card extends AggregateRoot<CardId> {
 
-
   private Name cardName;
   private Era era;
   private Type type;
   private Color color;
   private Construction construction;
   private Requirement requirement;
-
 
   public Card(String cardName, Integer era, String type, String color, Construction construction, Requirement requirement){
     super(new CardId());

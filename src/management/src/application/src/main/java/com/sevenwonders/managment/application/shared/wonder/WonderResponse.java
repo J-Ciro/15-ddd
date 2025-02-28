@@ -9,19 +9,25 @@ public class WonderResponse {
   private final Stage stage;
   private final Vault vault;
   private final Conflict conflict;
+  private final List<String> cardList;
 
-  public WonderResponse(String wonderId, String wonderName, Stage stage ,
-                        String mode
-                        , Vault vault, Conflict conflict) {
+  public WonderResponse(String wonderId, String wonderName, Stage stage,
+                        String mode, Vault vault, Conflict conflict, List<String> cardList) {
     this.wonderId = wonderId;
     this.wonderName = wonderName;
     this.mode = mode;
     this.stage = stage;
     this.vault = vault;
     this.conflict = conflict;
+    this.cardList = cardList;
   }
 
   // Getters
+
+  public List<String> getCardList() {
+    return cardList;
+  }
+
   public String getWonderId() { return wonderId; }
   public String getWonderName() { return wonderName; }
   public String getMode() { return mode; }

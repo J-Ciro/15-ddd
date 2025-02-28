@@ -184,25 +184,24 @@ public class CardHandler extends DomainActionsContainer {
 
   public Consumer<? extends DomainEvent> validateConstruction(Card card) {
     return (ValidatedConstruction event) -> {
-      Construction currentConstruction = card.getConstruction();
-
-      String validatedStatus = currentConstruction.checkStatus(event.getStatus());
-      String validatedEffect = currentConstruction.checkEffect(event.getEffect());
+      if (event.getStatus() == null) {
+        throw new IllegalArgumentException("Status value can't be null");
+      }
 
       Construction validatedConstruction = new Construction(
-        Status.of(validatedStatus),
+        Status.of(event.getStatus()),
         Chained.of(event.getChained()),
         Shields.of(event.getShields()),
-        Effect.of(validatedEffect)
+        Effect.of(event.getEffect())
       );
 
       card.setConstruction(validatedConstruction);
     };
   }
 
+
   public Consumer<? extends DomainEvent> validateRequirement(Card card) {
     return (ValidatedRequirement event) -> {
-
       Requirement validatedRequirement = new Requirement(
         Amount.of(event.getPrice()),
         Resources.of(event.getResources()),

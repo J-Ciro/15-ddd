@@ -4,16 +4,16 @@ import com.sevenwonders.shared.domain.generic.Identity;
 
 public class RequirementId extends Identity {
 
-  public RequirementId(){
+
+  public RequirementId() {
     super();
   }
 
-  private RequirementId(String value){
+  private RequirementId(String value) {
     super(value);
   }
 
-
-  public static RequirementId of (String value){
+  public static RequirementId of(String value) {
     return new RequirementId(value);
   }
 

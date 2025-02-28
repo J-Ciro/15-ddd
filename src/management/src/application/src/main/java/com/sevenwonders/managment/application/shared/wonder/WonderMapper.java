@@ -1,6 +1,5 @@
 package com.sevenwonders.managment.application.shared.wonder;
 
-import com.sevenwonders.management.domain.card.Card;
 import com.sevenwonders.management.domain.wonder.Wonder;
 import com.sevenwonders.management.domain.wonder.entities.Conflict;
 import com.sevenwonders.management.domain.wonder.entities.Stage;
@@ -14,17 +13,8 @@ public class WonderMapper {
       mapToStage(wonder.getStage()),
       wonder.getMode().getValue(),
       mapToVault(wonder.getVault()),
-      mapToConflict(wonder.getConflict())
-    );
-  }
-
-  private static WonderResponse.Card mapToCard(Card card) {
-    return new WonderResponse.Card(
-      card.getIdentity().getValue(),
-      card.getCardName().getValue(),
-      card.getEra().getValue(),
-      card.getType().getValue(),
-      card.getColor().getValue()
+      mapToConflict(wonder.getConflict()),
+      wonder.getCardList()
     );
   }
 

@@ -5,6 +5,7 @@ import com.sevenwonders.management.domain.card.entities.Construction;
 import com.sevenwonders.management.domain.card.entities.Requirement;
 
 public class CardMapper {
+
   public static CardResponse mapToCard(Card card) {
     return new CardResponse(
       card.getIdentity().getValue(),
@@ -19,9 +20,6 @@ public class CardMapper {
 
   private static CardResponse.Construction mapToConstruction(Construction construction) {
 
-    if (construction == null) {
-      return null;
-    }
     return new CardResponse.Construction(
       construction.getStatus().getValue(),
       construction.getChained().getValue(),
@@ -31,9 +29,6 @@ public class CardMapper {
   }
 
   private static CardResponse.Requirement mapToRequirement(Requirement requirement) {
-    if (requirement == null) {
-      return null;
-    }
     return new CardResponse.Requirement(
       requirement.getAmount().getValue(),
       requirement.getResource().getValue(),
