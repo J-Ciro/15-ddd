@@ -24,29 +24,35 @@ public class ManageWonderStageUseCase  implements ICommandUseCase<ManageWonderSt
       .collectList()
       .map(events -> Wonder.from(request.getAggregateId(), events))
       .flatMap(wonder -> {
-        wonder.checkStage(
-          request.getWonderId(),
-          request.getWonderName(),
-          request.getStageName()
-        );
+        try {
 
-        wonder.validateStage(
-          request.getWonderId(),
-          request.getWonderName(),
-          request.getStageName(),
-          request.getRequiredCoins(),
-          request.getRequiredResources()
-        );
+          wonder.checkStage(
+            request.getWonderId(),
+            request.getWonderName(),
+            request.getStageName()
+          );
 
-        wonder.updateStage(
-          request.getWonderId(),
-          request.getStageName(),
-          request.getWonderName()
-        );
+          wonder.validateStage(
+            request.getWonderId(),
+            request.getWonderName(),
+            request.getStageName(),
+            request.getRequiredCoins(),
+            request.getRequiredResources()
+          );
 
-        wonder.getUncommittedEvents().forEach(repository::save);
-        wonder.markEventsAsCommitted();
-        return Mono.just(WonderMapper.mapToWonder(wonder));
+          wonder.updateStage(
+            request.getWonderId(),
+            request.getStageName(),
+            request.getWonderName()
+          );
+
+          // Guardamos los eventos y devolvemos la respuesta
+          wonder.getUncommittedEvents().forEach(repository::save);
+          wonder.markEventsAsCommitted();
+          return Mono.just(WonderMapper.mapToWonder(wonder));
+        } catch (IllegalStateException e) {
+          return Mono.error(new RuntimeException("Error: " + e.getMessage()));
+        }
       });
   }
 }

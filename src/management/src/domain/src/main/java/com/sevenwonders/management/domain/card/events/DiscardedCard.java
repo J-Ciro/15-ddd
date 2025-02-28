@@ -6,13 +6,17 @@ import com.sevenwonders.shared.domain.generic.DomainEvent;
 
 public class DiscardedCard extends DomainEvent {
 
-  private final String id;
-  private final String name;
-  private final Integer era;
-  private final String type;
-  private final String color;
-  private final Requirement requirements;
-  private final Construction constructions;
+  private  String id;
+  private  String name;
+  private  Integer era;
+  private  String type;
+  private  String color;
+  private  Requirement requirements;
+  private  Construction constructions;
+
+  public DiscardedCard() {
+    super(EventsEnum.DISCARDED_CARD.name());
+  }
 
 
   public DiscardedCard(String id, String name, Integer era, String type, String color, Requirement requirements, Construction constructions) {
@@ -30,28 +34,57 @@ public class DiscardedCard extends DomainEvent {
     return id;
   }
 
+  public void setId(String id) {
+    this.id = id;
+  }
+
   @Override
   public String getName() {
     return name;
+  }
+
+  @Override
+  public void setName(String name) {
+    this.name = name;
   }
 
   public Integer getEra() {
     return era;
   }
 
+  public void setEra(Integer era) {
+    this.era = era;
+  }
+
   public String getType() {
     return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   public String getColor() {
     return color;
   }
 
+  public void setColor(String color) {
+    this.color = color;
+  }
+
   public Requirement getRequirements() {
     return requirements;
   }
 
+  public void setRequirements(Requirement requirements) {
+    this.requirements = requirements;
+  }
+
   public Construction getConstructions() {
     return constructions;
+  }
+
+  public void setConstructions(Construction constructions) {
+    this.constructions = constructions;
   }
 }

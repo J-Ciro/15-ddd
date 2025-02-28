@@ -2,27 +2,23 @@ package com.sevenwonders.managment.application.wonder.calculatepoints;
 
 import com.sevenwonders.managment.application.Request;
 
-import java.util.List;
-
 public class CalculateWonderPointsRequest extends Request {
+  private  Integer marks;
 
-  private final String wonderId;
-  private final List<Integer> marks;
-
-
-  public CalculateWonderPointsRequest(String aggregateId, String wonderId, List<Integer>  marks) {
+  public CalculateWonderPointsRequest(String aggregateId) {
     super(aggregateId);
-    this.wonderId = wonderId;
+  }
+
+  public CalculateWonderPointsRequest(String aggregateId, Integer marks) {
+    super(aggregateId);
     this.marks = marks;
   }
 
-  public String getWonderId() {
-    return wonderId;
-  }
-
-  public  List<Integer> getMarks() {
+  public Integer getMarks() {
     return marks;
   }
 
-
+  public void setMarks(Integer marks) {
+    this.marks = marks;
+  }
 }

@@ -4,11 +4,11 @@ import com.sevenwonders.shared.domain.generic.DomainEvent;
 
 public class DiscardedConstruction extends DomainEvent {
 
-  private final String id;
-  private final String status;
-  private final Boolean chained;
-  private final Integer shields;
-  private final String effect;
+  private  String id;
+  private  String status;
+  private  Boolean chained;
+  private  Integer shields;
+  private  String effect;
 
 
   public DiscardedConstruction(String id, String status, Boolean chained, Integer shields, String effect) {
@@ -20,23 +20,44 @@ public class DiscardedConstruction extends DomainEvent {
     this.effect = effect;
   }
 
+
   public String getId() {
     return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
   public String getStatus() {
     return status;
   }
 
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
   public Boolean getChained() {
     return chained;
+  }
+
+  public void setChained(Boolean chained) {
+    this.chained = chained;
   }
 
   public Integer getShields() {
     return shields;
   }
 
+  public void setShields(Integer shields) {
+    this.shields = shields;
+  }
+
   public String getEffect() {
     return effect;
+  }
+
+  public void setEffect(String effect) {
+    this.effect = effect;
   }
 }

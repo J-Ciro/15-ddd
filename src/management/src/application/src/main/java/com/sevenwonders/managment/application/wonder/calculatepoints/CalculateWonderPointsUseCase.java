@@ -16,15 +16,20 @@ public class CalculateWonderPointsUseCase implements ICommandUseCase<CalculateWo
 
   @Override
   public Mono<WonderResponse> execute(CalculateWonderPointsRequest request) {
+
+    if (request.getMarks() == null) {
+      return Mono.error(new IllegalArgumentException("Marks cannot be null"));
+    }
+
     return repository.findEventsByAggregatedId(request.getAggregateId())
       .collectList()
-      .map(events -> Wonder.from(request.getAggregateId(), events))
-      .map(wonder -> {
-        wonder.calculatePoints(request.getWonderId(), request.getMarks());
+      .map(events -> {
+        Wonder wonder = Wonder.from(request.getAggregateId(), events);
+        wonder.calculatePoints(request.getMarks());
         wonder.getUncommittedEvents().forEach(repository::save);
         wonder.markEventsAsCommitted();
         return WonderMapper.mapToWonder(wonder);
       });
-  }
 
+  }
 }

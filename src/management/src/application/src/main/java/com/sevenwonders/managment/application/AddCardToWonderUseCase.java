@@ -7,9 +7,6 @@ import com.sevenwonders.managment.application.shared.wonder.WonderMapper;
 import reactor.core.publisher.Mono;
 import com.sevenwonders.managment.application.shared.wonder.WonderResponse;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AddCardToWonderUseCase implements ICommandUseCase<AddCardToWonderRequest, Mono<WonderResponse>> {
   private final IEventsRepositoryPort repository;
 
@@ -19,59 +16,44 @@ public class AddCardToWonderUseCase implements ICommandUseCase<AddCardToWonderRe
 
   @Override
   public Mono<WonderResponse> execute(AddCardToWonderRequest request) {
-    return repository.findEventsByAggregatedId(request.getAggregateId())
-      .collectList()
-      .map(wonderEvents -> Wonder.from(request.getAggregateId(), wonderEvents))
-      .flatMap(wonder ->
-        repository.findEventsByAggregatedId(request.getCardId())
-          .collectList()
-          .map(cardEvents -> Card.from(request.getCardId(), cardEvents))
-          .map(card -> {
-            card.checkRequirement(
-              card.getIdentity().getValue(),
-              request.getPrice(),
-              request.getResources(),
-              request.getMinimumPlayers()
-            );
+    System.out.println("_________________________________________________");
+    System.out.println("Agregate ID " + request.getAggregateId());
+    System.out.println("CardId " + request.getCardId());
+    System.out.println("_________________________________________________");
+    return Mono.zip(
+        repository.findEventsByAggregatedId(request.getAggregateId()).collectList(),
+        repository.findEventsByAggregatedId(request.getCardId()).collectList()
+      ).flatMap(tuple -> {
+        Wonder wonder = Wonder.from(request.getAggregateId(), tuple.getT1());
+        Card card = Card.from(request.getCardId(), tuple.getT2());
 
-            card.checkConstruction(
-              card.getIdentity().getValue(),
-              "INPROGRESS",
-              false,
-              0,
-              "NONE"
-            );
 
-            wonder.updateVault(
-              card.getIdentity().getValue(),
-              wonder.getName().getValue(),
-              calculateRemainingCoins(wonder, card),
-              calculateRemainingResources(wonder, card)
-            );
+        if (card.getRequirement() == null) {
+          wonder.addCard(card.getIdentity().getValue(), request.getAggregateId(), wonder.getWonderName().getValue());
+          wonder.getUncommittedEvents().forEach(repository::save);
+          card.getUncommittedEvents().forEach(repository::save);
+          wonder.markEventsAsCommitted();
+          card.markEventsAsCommitted();
+          return Mono.just(WonderMapper.mapToWonder(wonder));
+        } else {
+          wonder.updateVault(
+            card.getIdentity().getValue(),
+            wonder.getWonderName().getValue(),
+            wonder.getVault().getCoins().getValue() - card.getRequirement().getAmount().getValue(),
+            wonder.getVault().getResources().getValue().stream()
+              .filter(resource -> !card.getRequirement().getResource().getValue().contains(resource))
+              .toList()
+          );
 
-            wonder.getUncommittedEvents().forEach(repository::save);
-            card.getUncommittedEvents().forEach(repository::save);
+          wonder.addCard(card.getIdentity().getValue(), request.getAggregateId(), wonder.getWonderName().getValue());
+          wonder.getUncommittedEvents().forEach(repository::save);
+          card.getUncommittedEvents().forEach(repository::save);
+          wonder.markEventsAsCommitted();
+          card.markEventsAsCommitted();
+          return Mono.just(WonderMapper.mapToWonder(wonder));
+        }
 
-            return WonderMapper.mapToWonder(wonder);
-          })
-      );
+      }).doOnError(Throwable::printStackTrace)
+      .onErrorResume(e -> Mono.error(new RuntimeException("Failed to add card to wonder: " + e.getMessage(), e)));
   }
-
-  private Integer calculateRemainingCoins(Wonder wonder, Card card) {
-    Integer currentCoins = wonder.getVault().getCoins().getValue();
-    Integer cardPrice = card.getRequirement().getAmount().getValue();
-    return currentCoins - cardPrice;
-  }
-
-  private List<String> calculateRemainingResources(Wonder wonder, Card card) {
-    List<String> currentResources = new ArrayList<>(wonder.getVault().getResources().getValue());
-    List<String> requiredResources = card.getRequirement().getResource().getValue();
-
-    for (String resource : requiredResources) {
-      currentResources.remove(resource);
-    }
-
-    return currentResources;
-  }
-
 }

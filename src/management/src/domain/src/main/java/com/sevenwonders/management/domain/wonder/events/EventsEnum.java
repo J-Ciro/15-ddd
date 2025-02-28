@@ -8,4 +8,5 @@ public enum EventsEnum {
   UPDATED_VAULT,
   UPDATED_STAGE,
   VALIDATED_STAGE,
+  CARD_ADDED_TO_WONDER
 }

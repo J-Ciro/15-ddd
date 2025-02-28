@@ -8,6 +8,7 @@ import com.sevenwonders.management.domain.wonder.entities.Vault;
 import com.sevenwonders.management.domain.wonder.events.AssignedWonder;
 import com.sevenwonders.management.domain.wonder.events.CalculatePoints;
 import com.sevenwonders.management.domain.wonder.events.CalculateResources;
+import com.sevenwonders.management.domain.wonder.events.CardAddedToWonder;
 import com.sevenwonders.management.domain.wonder.events.CheckedStage;
 import com.sevenwonders.management.domain.wonder.events.UpdateVault;
 import com.sevenwonders.management.domain.wonder.events.UpdatedStage;
@@ -17,22 +18,24 @@ import com.sevenwonders.management.domain.wonder.values.WonderId;
 import com.sevenwonders.shared.domain.generic.AggregateRoot;
 import com.sevenwonders.shared.domain.generic.DomainEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Wonder extends AggregateRoot<WonderId> {
 
-private Name name;
+private Name wonderName;
 private Mode mode;
-private List<Card> cards ;
 private Conflict conflict;
 private Vault vault;
 private Stage stage;
+private List<String> cardList;
 
 // region Constructors
-public Wonder(String name, String mode){
+public Wonder(String wonderName, String mode){
   super(new WonderId());
   subscribe(new WonderHandler(this));
-  apply(new AssignedWonder(name, mode));
+  apply(new AssignedWonder(wonderName, mode));
+  this.cardList = new ArrayList<>();
 
 }
 
@@ -45,12 +48,12 @@ private Wonder(WonderId identity){
 
 //region Getters and Setters
 
-  public Name getName() {
-    return name;
+  public Name getWonderName() {
+    return wonderName;
   }
 
-  public void setName(Name name) {
-    this.name = name;
+  public void setWonderName(Name wonderName) {
+    this.wonderName = wonderName;
   }
 
   public Mode getMode() {
@@ -59,14 +62,6 @@ private Wonder(WonderId identity){
 
   public void setMode(Mode mode) {
     this.mode = mode;
-  }
-
-  public List<Card> getCards() {
-    return cards;
-  }
-
-  public void setCards(List<Card> cards) {
-    this.cards = cards;
   }
 
   public Conflict getConflict() {
@@ -93,7 +88,13 @@ private Wonder(WonderId identity){
     this.stage = stage;
   }
 
+  public List<String> getCardList() {
+    return cardList;
+  }
 
+  public void setCardList(List<String> cardList) {
+    this.cardList = cardList;
+  }
 //endregion
 
 //region Domain Actions
@@ -117,13 +118,17 @@ public void updateVault(String id, String wonderName, Integer coins, List<String
   apply(new UpdateVault(id, wonderName, coins, resources));
 }
 
-public void calculatePoints(String id, List<Integer>  marks){
-  apply(new CalculatePoints(id, marks));
-}
+  public void calculatePoints(Integer  marks){
+    apply(new CalculatePoints(marks));
+  }
 
 public void calculateResources(String id, String wonderName, Integer coins, List<String> resources){
   apply(new CalculateResources(id, wonderName, coins, resources));
 }
+
+  public void addCard(String cardId, String wonderId, String wonderName) {
+    apply(new CardAddedToWonder(wonderId, wonderName, cardId));
+  }
 
 //endregion
 

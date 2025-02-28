@@ -20,8 +20,21 @@ public class ValidateCardConstructionUseCase implements ICommandUseCase<Validate
     return repository.findEventsByAggregatedId(request.getAggregateId())
       .collectList()
       .map(events -> {
+        if (request.getStatus() == null) {
+          request.setStatus("BUILT");
+          request.setChained(false);
+          request.setShields(0);
+          request.setEffect("VICTORYPOINTS");
+        }
+
         Card card = Card.from(request.getAggregateId(), events);
-        card.validateConstruction(request.getAggregateId(), request.getStatus(), request.getChained(), request.getShields(), request.getEffect());
+        card.validateConstruction(
+          request.getAggregateId(),
+          request.getStatus(),
+          request.getChained(),
+          request.getShields(),
+          request.getEffect()
+        );
         card.getUncommittedEvents().forEach(repository::save);
         card.markEventsAsCommitted();
         return CardMapper.mapToCard(card);

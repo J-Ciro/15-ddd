@@ -24,19 +24,15 @@ public class AssignedWonder extends DomainEvent {
     return wonderName;
   }
 
-  public String getMode() {
-    return mode;
-  }
-
   public void setWonderName(String wonderName) {
     this.wonderName = wonderName;
+  }
+
+  public String getMode() {
+    return mode;
   }
 
   public void setMode(String mode) {
     this.mode = mode;
   }
-
-
-
-
 }

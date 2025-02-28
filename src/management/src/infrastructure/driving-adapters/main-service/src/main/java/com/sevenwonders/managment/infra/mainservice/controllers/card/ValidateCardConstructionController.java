@@ -22,10 +22,9 @@ public class ValidateCardConstructionController {
   }
 
 
-@PostMapping
-
+  @PostMapping
   public Mono<CardResponse> execute(@RequestBody ValidateCardConstructionRequest request) {
    return useCase.execute(request);
-}
+  }
 
 }
