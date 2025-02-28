@@ -6,11 +6,15 @@ import java.util.List;
 
 public class UpdateWonderResourcesRequest extends Request {
 
-  private final String wonderId;
-  private final String wonderName;
-  private final Integer coins;
-  private final List<String> resources;
+  private  String wonderId;
+  private  String wonderName;
+  private  Integer coins;
+  private  List<String> resources;
 
+
+  public UpdateWonderResourcesRequest(String aggregateId) {
+    super(aggregateId);
+  }
 
   protected UpdateWonderResourcesRequest(String aggregateId, String wonderId, String wonderName, Integer coins, List<String> resources) {
     super(aggregateId);
@@ -37,6 +41,19 @@ public class UpdateWonderResourcesRequest extends Request {
     return resources;
   }
 
+  public void setWonderId(String wonderId) {
+    this.wonderId = wonderId;
+  }
 
+  public void setWonderName(String wonderName) {
+    this.wonderName = wonderName;
+  }
 
+  public void setCoins(Integer coins) {
+    this.coins = coins;
+  }
+
+  public void setResources(List<String> resources) {
+    this.resources = resources;
+  }
 }

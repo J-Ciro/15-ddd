@@ -11,6 +11,11 @@ public class CheckedConstruction extends DomainEvent {
   private  String effect;
 
 
+  public CheckedConstruction() {
+    super(EventsEnum.CHECKED_CONSTRUCTION.name());
+  }
+
+
   public CheckedConstruction(String id, String status, Boolean chained, Integer shields, String effect) {
     super(EventsEnum.CHECKED_CONSTRUCTION.name());
     this.id = id;
@@ -20,23 +25,44 @@ public class CheckedConstruction extends DomainEvent {
     this.effect = effect;
   }
 
+
   public String getId() {
     return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
   public String getStatus() {
     return status;
   }
 
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
   public Boolean getChained() {
     return chained;
+  }
+
+  public void setChained(Boolean chained) {
+    this.chained = chained;
   }
 
   public Integer getShields() {
     return shields;
   }
 
+  public void setShields(Integer shields) {
+    this.shields = shields;
+  }
+
   public String getEffect() {
     return effect;
+  }
+
+  public void setEffect(String effect) {
+    this.effect = effect;
   }
 }

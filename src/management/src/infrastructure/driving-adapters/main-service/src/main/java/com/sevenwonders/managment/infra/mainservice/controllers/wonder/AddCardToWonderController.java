@@ -21,11 +21,9 @@ public class AddCardToWonderController {
     this.useCase = useCase;
   }
 
-
   @PostMapping
   public Mono<WonderResponse> execute(@RequestBody AddCardToWonderRequest request){
     return  useCase.execute(request);
   }
-
 
 }
